@@ -1,0 +1,6 @@
+<map id="Graph::takeSnapshot" name="Graph::takeSnapshot">
+<area shape="rect" id="node1" title="сигнал сохранение состояния сцены" alt="" coords="263,56,408,83"/>
+<area shape="rect" id="node2" href="$class_graph.html#a4a7400e4b5efb931be684ca669926ffe" title="пошаговая демонстрация проверки включения ребра в цикл" alt="" coords="5,5,215,32"/>
+<area shape="rect" id="node3" href="$class_cycles_demo.html#a7047201e83db7394fdbe73f30ce82171" title="конструктор класса" alt="" coords="21,56,199,83"/>
+<area shape="rect" id="node4" href="$class_kruskal_demo.html#abd1bc6aaa72fd2c985c4ec98a15c160b" title="конструктор класса" alt="" coords="17,107,203,133"/>
+</map>

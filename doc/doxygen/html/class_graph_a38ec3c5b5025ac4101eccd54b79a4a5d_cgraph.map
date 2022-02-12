@@ -1,0 +1,5 @@
+<map id="Graph::PrepareToPaint" name="Graph::PrepareToPaint">
+<area shape="rect" id="node1" title="подготовка графа к отрисовке на графической сцене" alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node2" href="$class_vertex.html#a614bfdfe0ec1b7734f01e34075832383" title="подготовка объекта к отрисовке" alt="" coords="208,5,365,32"/>
+<area shape="rect" id="node3" href="$class_vertex.html#ab26736f63f30d1e239abd437c93fc735" title="поиск координат метки вершины графа" alt="" coords="413,5,560,32"/>
+</map>

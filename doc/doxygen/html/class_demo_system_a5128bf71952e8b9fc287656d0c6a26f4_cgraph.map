@@ -1,0 +1,5 @@
+<map id="DemoSystem::DemoSystem" name="DemoSystem::DemoSystem">
+<area shape="rect" id="node1" title="конструктор класса" alt="" coords="5,31,193,57"/>
+<area shape="rect" id="node2" href="$class_demo_system.html#a8e6fb4f5ccf44923bc6ef004a83bd73d" title="переход к демонстрации алгоритма проверки включения ребра в цикл" alt="" coords="243,5,425,32"/>
+<area shape="rect" id="node3" href="$class_demo_system.html#ac7a5b06a0c3abc262669cdd75da6d454" title="переход к демонстрации алгоритма Краскала" alt="" coords="241,56,427,83"/>
+</map>

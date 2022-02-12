@@ -1,0 +1,5 @@
+<map id="Edge::PrepareToPaint" name="Edge::PrepareToPaint">
+<area shape="rect" id="node1" title="подготовка объекта к отрисовке" alt="" coords="5,31,155,57"/>
+<area shape="rect" id="node2" href="$class_vertex.html#ae2896f8012b2229ef1d7498bef057179" title="возвращает координаты центра точки" alt="" coords="203,5,340,32"/>
+<area shape="rect" id="node3" href="$class_edge.html#aeaa699a5fd4f867b6554895c461cc70d" title="поиск координат метки стоимости ребра графа" alt="" coords="204,56,339,83"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Edge::SetPen" name="Edge::SetPen">
+<area shape="rect" id="node1" title="изменение ручки, которой нарисован объект" alt="" coords="263,31,365,57"/>
+<area shape="rect" id="node2" href="$class_graph.html#a4a7400e4b5efb931be684ca669926ffe" title="пошаговая демонстрация проверки включения ребра в цикл" alt="" coords="5,5,215,32"/>
+<area shape="rect" id="node3" href="$class_graph.html#a8f683523573d20c3b1d417e0d3719197" title="алгоритм Краскала поиска минимального остовного дерева" alt="" coords="55,56,165,83"/>
+</map>

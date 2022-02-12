@@ -1,0 +1,5 @@
+<map id="Vertex::FindLabelPos" name="Vertex::FindLabelPos">
+<area shape="rect" id="node1" title="поиск координат метки вершины графа" alt="" coords="413,5,560,32"/>
+<area shape="rect" id="node2" href="$class_vertex.html#a614bfdfe0ec1b7734f01e34075832383" title="подготовка объекта к отрисовке" alt="" coords="208,5,365,32"/>
+<area shape="rect" id="node3" href="$class_graph.html#a38ec3c5b5025ac4101eccd54b79a4a5d" title="подготовка графа к отрисовке на графической сцене" alt="" coords="5,5,160,32"/>
+</map>

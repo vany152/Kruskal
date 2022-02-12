@@ -1,0 +1,4 @@
+<map id="Edge::Show" name="Edge::Show">
+<area shape="rect" id="node1" title="отображение ребра на графической сцене" alt="" coords="163,5,255,32"/>
+<area shape="rect" id="node2" href="$class_graph.html#a8f683523573d20c3b1d417e0d3719197" title="алгоритм Краскала поиска минимального остовного дерева" alt="" coords="5,5,115,32"/>
+</map>
