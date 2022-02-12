@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Содержание</title>
+
+    <style>
+        ol {
+            list-style: none;
+            counter-reset: li;
+        }
+
+        li:before {
+            counter-increment: li;
+            content: counters(li, ".") ". ";
+        }
+
+        body {
+            font-family: Trebuchet MS, sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+<h2><a id="содержание">Содержание</a></h2>
+<ol>
+    <li><a href="kruskal.html#заголовок">Алгоритм Краскала</a>
+        <ol>
+            <li><a href="kruskal.html#формулировка">Формулировка</a></li>
+            <li><a href="kruskal.html#представление графа">Представление графа в виде списка смежности</a></li>
+            <li><a href="kruskal.html#псевдокод">Псевдокод</a></li>
+            <li><a href="kruskal.html#пошаговое выполнение">Пошаговая демонстрация</a></li>
+            <li><a href="kruskal.html#оценка">Оценка сложности</a></li>
+        </ol>
+    </li>
+
+    <li><a href="cycles.html#заголовок">Поиск цикла на графе</a>
+        <ol>
+            <li><a href="cycles.html#псевдокод">Псевдокод</a></li>
+            <li><a href="cycles.html#пошаговое выполнение">Пошаговое выполнение</a></li>
+            <li><a href="cycles.html#оценка">Оценка сложности</a></li>
+        </ol>
+    </li>
+</ol>
+
+</body>
+</html>

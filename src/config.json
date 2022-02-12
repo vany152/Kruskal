@@ -1,0 +1,9 @@
+{
+    "testing": {
+        "amountOfQuestions": 8,
+        "questionsSource": "D:/study/asd/asd/coursework/src/questions.json"
+    },
+    "theory": {
+        "mainFileSource": "D:/study/asd/asd/coursework/src/theory/context.html"
+    }
+}
