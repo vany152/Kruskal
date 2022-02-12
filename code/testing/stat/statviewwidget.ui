@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StatViewWidget</class>
+ <widget class="QWidget" name="StatViewWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1148</width>
+    <height>494</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>StatViewWidget</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="1">
+    <widget class="QComboBox" name="showOptionComboBox">
+     <item>
+      <property name="text">
+       <string>Имя пользователя</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Период прохождения тестирования</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Продолжительность тестирования</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Процент выполнения</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QDateTimeEdit" name="testingStartDateTimeEdit"/>
+     </item>
+     <item row="0" column="0" colspan="4">
+      <widget class="QLineEdit" name="usernameLineEdit">
+       <property name="placeholderText">
+        <string>Имя пользователя</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QDateTimeEdit" name="testingFinishDateTimeEdit"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="testingFinishLabel">
+       <property name="text">
+        <string>До</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="testingStartLabel">
+       <property name="text">
+        <string>С</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="durationFromLabel">
+       <property name="text">
+        <string>От</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QTimeEdit" name="durationFromTimeEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="percentsFromLaleb">
+       <property name="text">
+        <string>От</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="percentsToLabel">
+       <property name="text">
+        <string>До</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLabel" name="durationToLabel">
+       <property name="text">
+        <string>До</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QTimeEdit" name="durationToTimeEdit"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QSpinBox" name="percentsFromSpinBox">
+       <property name="value">
+        <number>65</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QSpinBox" name="percentsToSpinBox">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="showButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Показать</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QTableView" name="tableView">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::NoSelection</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="clearFilterButton">
+     <property name="text">
+      <string>Сбросить фильтр</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <author/>
+    <comment/>
+    <exportmacro/>
+    <class>DemoSystem</class>
+    <widget class="QMainWindow" name="DemoSystem">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>900</width>
+                <height>580</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>DemoSystem</string>
+        </property>
+        <widget class="QWidget" name="centralWidget">
+            <layout class="QGridLayout" name="gridLayout"/>
+        </widget>
+    </widget>
+    <pixmapfunction/>
+    <connections/>
+</ui>
