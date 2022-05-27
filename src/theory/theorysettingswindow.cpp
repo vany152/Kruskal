@@ -1,7 +1,7 @@
 #include <QFileDialog>
 
 #include "theorysettingswindow.h"
-#include "ui_TheorySettingsWindow.h"
+#include "ui_theorysettingswindow.h"
 
 #include "../common/constants.h"
 #include "../common/documents.h"

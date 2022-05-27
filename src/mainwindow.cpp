@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "theory/theorysystem.h"
+//#include "theory/theorysystem.h"
 #include "testing/testingsystem.h"
 #include "demo/demosystem.h"
 
@@ -58,8 +58,8 @@ void MainWindow::displayHelloText()
 /// запуск окна с теорией
 void MainWindow::on_theoryButton_clicked()
 {
-    TheorySystem * theorySystemWindow = new TheorySystem(this);
-    theorySystemWindow->show();
+//    TheorySystem * theorySystemWindow = new TheorySystem(this);
+//    theorySystemWindow->show();
 }
 
 /// запуск окна с демонстрацией

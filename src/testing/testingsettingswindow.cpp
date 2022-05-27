@@ -1,7 +1,7 @@
 #include <QFileDialog>
 
 #include "testingsettingswindow.h"
-#include "ui_TestingSettingsWindow.h"
+#include "ui_testingsettingswindow.h"
 
 #include "../common/constants.h"
 #include "../common/documents.h"

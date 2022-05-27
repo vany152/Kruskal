@@ -1,5 +1,5 @@
 #include "welcometotesting.h"
-#include "ui_WelcomeToTesting.h"
+#include "ui_welcometotesting.h"
 #include "../common/constants.h"
 
 WelcomeToTesting::WelcomeToTesting(QWidget * parent) :

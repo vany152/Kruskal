@@ -8,7 +8,7 @@
 #include <QDateTime>
 #include <QSqlDatabase>
 
-#include "../questions/Question.h"
+#include "../questions/question.h"
 #include "../../common/Error.h"
 
 using std::pair;

@@ -7,7 +7,7 @@
 #include <QCheckBox>
 #include <QTextBrowser>
 
-#include "Question.h"
+#include "question.h"
 
 using std::vector;
 using std::shared_ptr;

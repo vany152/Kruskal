@@ -1,5 +1,5 @@
 #include "statviewwidget.h"
-#include "ui_StatViewWidget.h"
+#include "ui_statviewwidget.h"
 
 using namespace std;
 

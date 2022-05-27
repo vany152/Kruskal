@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QtSvgWidgets/QGraphicsSvgItem>
 
 #include "graph/Graph.h"
 #include "../common/constants.h"

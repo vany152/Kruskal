@@ -1,6 +1,5 @@
 #include <random>
 #include <ctime>
-#include <list>
 #include <stack>
 #include <array>
 

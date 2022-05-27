@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QCloseEvent>
 
-#include "Stat.h"
+#include "stat.h"
 
 using std::shared_ptr;
 

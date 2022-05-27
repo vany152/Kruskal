@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "questions/questionwidget.h"
-#include "stat/Stat.h"
+#include "stat/stat.h"
 
 using std::vector;
 using std::shared_ptr;

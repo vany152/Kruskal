@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QDialog>
 
-#include "questions/Question.h"
+#include "questions/question.h"
 #include "welcometotesting.h"
 #include "testing.h"
 #include "stat/statwidget.h"

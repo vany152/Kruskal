@@ -1,7 +1,7 @@
 #include <set>
 
 #include "questionwidget.h"
-#include "ui_questionWidget.h"
+#include "ui_questionwidget.h"
 
 QuestionWidget::QuestionWidget(const shared_ptr<Question> & question, QWidget * parent, QTextBrowser * questionTextBrowser) :
 		QWidget(parent), questionTextBrowser(questionTextBrowser), ui(new Ui::QuestionWidget),

@@ -46,7 +46,7 @@ void Testing::readQuestions()
 	 * сформированный массив содержит порядок вопросов
 	 */
 	// количество вопросов = минимум(количество имеющихся вопросов, записанное в файле конфигов количество)
-	size_t numberOfQuestions = min(questionsJson.size(), testingConfig.find("amountOfQuestions")->toInt());
+	size_t numberOfQuestions = min(static_cast<int>(questionsJson.size()), testingConfig.find("amountOfQuestions")->toInt());
 	vector<int> questionsOrder(numberOfQuestions);
 	iota(questionsOrder.begin(), questionsOrder.end(), 1); // заполняем порядок числами от 1
 	// случайным образом перемешиваем массив с номерами вариантов ответа

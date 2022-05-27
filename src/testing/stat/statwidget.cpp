@@ -1,5 +1,5 @@
 #include "statwidget.h"
-#include "ui_StatWidget.h"
+#include "ui_statwidget.h"
 
 StatWidget::StatWidget(const shared_ptr<Stat> & stat, QWidget * parent) :
 		stat(stat), QWidget(parent), ui(new Ui::StatWidget)

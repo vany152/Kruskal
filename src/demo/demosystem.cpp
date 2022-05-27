@@ -1,3 +1,4 @@
+#include <QtSvgWidgets/QGraphicsSvgItem>
 #include <QCloseEvent>
 
 #include "demosystem.h"
