@@ -134,10 +134,10 @@ if (WIN32)
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/sqldrivers/")
     endif ()
 
-    foreach (QT_LIB Core Gui Widgets Svg Sql)
+    foreach (QT_LIB Core Gui Widgets Svg SvgWidgets Sql)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy
-                "${QT_INSTALL_PATH}/bin/Qt5${QT_LIB}.dll"
+                "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}.dll"
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
 endif ()
