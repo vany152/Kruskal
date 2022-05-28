@@ -1,19 +1,23 @@
 #ifndef ASD_CONSTANTS_H
 #define ASD_CONSTANTS_H
 
+namespace {
 #include <QString>
+}
 
 /// отвечает за включение отладочного кода
-//#define DEBUG // todo изменить при компиляции в релизе!
+#ifndef NDEBUG
+  #define DEBUG
+#endif
 
 #define PI 3.14159265358979323846 // чтобы не включать <cmath>
 
 #ifdef DEBUG
-const QString configPath = "D:/study/asd/asd/coursework/code/config.json"; ///< путь к файлу с конфигами
-const QString databasePath = "D:/study/asd/asd/coursework/src/stat.sqlite"; ///< путь к файлу с базой данных
+const QString configPath = "D:/dev/Kruskal/resx/config.json"; ///< путь к файлу с конфигами
+const QString databasePath = "D:/dev/Kruskal/resx/stat.sqlite"; ///< путь к файлу с базой данных
 #else
-const QString configPath = "src/config.json"; ///< путь к файлу с конфигами
-const QString databasePath = "src/stat.sqlite"; ///< путь к файлу с базой данных
+const QString configPath = "resx/config.json"; ///< путь к файлу с конфигами
+const QString databasePath = "resx/stat.sqlite"; ///< путь к файлу с базой данных
 #endif
 
 #endif //ASD_CONSTANTS_H

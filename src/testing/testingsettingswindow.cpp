@@ -49,7 +49,7 @@ void TestingSettingsWindow::on_changeQuestionsSourceButton_clicked()
     QString newSource = QFileDialog::getOpenFileName(
                 this,
                 "Choose theory file",
-                "/src",
+                "/resx",
                 "JSON файлы (*.json);;Все файлы (*.*)"
     );
 	
