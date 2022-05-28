@@ -9,17 +9,17 @@
 class Error : public std::exception
 {
 protected:
-	std::string what; ///< текст ошибки
+	std::string _what; ///< текст ошибки
 	
 public:
-	Error() : what("") {}
-	Error(const std::string & what) : what(what) {}
-	std::string What() { return what; }
+	Error() = default;
+	Error(const std::string & what) : _what(what) {}
+	const char * what() const noexcept override { return _what.c_str(); }
 	
 	void Show()
 	{
 		QErrorMessage * err = new QErrorMessage(nullptr);
-		err->showMessage(QString::fromStdString(what));
+		err->showMessage(QString::fromStdString(_what));
 		err->exec();
 	}
 };
@@ -27,8 +27,8 @@ public:
 class FileError : public Error
 {
 public:
-	FileError() { what = ""; }
-	FileError(const std::string & what) { this->what = what; }
+	FileError() = default;
+	FileError(const std::string & what) : Error(what) {}
 };
 
 #endif //ASD_ERROR_H

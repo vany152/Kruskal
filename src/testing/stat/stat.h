@@ -18,7 +18,7 @@ using std::unordered_map;
 class Stat
 {
 public:
-	class StatError final : public Error { public: StatError(const std::string & _what) { what = _what; } };
+    class StatError final : public Error { public: StatError(const std::string & what) : Error(what) {} };
 	
 	/**
 	 * @brief конструктор класса
