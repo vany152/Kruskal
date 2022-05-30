@@ -1,5 +1,5 @@
-#ifndef ASD_QUESTION_H
-#define ASD_QUESTION_H
+#ifndef KRUSKAL_QUESTION_H
+#define KRUSKAL_QUESTION_H
 
 #include <vector>
 #include <set>
@@ -61,4 +61,4 @@ private:
 	set<int> correctAnswers; ///< номера правильных ответов на вопрос
 };
 
-#endif //ASD_QUESTION_H
+#endif // KRUSKAL_QUESTION_H

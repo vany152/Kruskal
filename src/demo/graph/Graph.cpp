@@ -8,7 +8,7 @@
 #include "Graph.h"
 #include "../../common/constants.h"
 
-#ifdef DEBUG
+#ifndef NDEBUG
   #include <QDebug>
 #endif
 

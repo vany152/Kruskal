@@ -1,5 +1,5 @@
-#ifndef ASD_STATWIDGET_H
-#define ASD_STATWIDGET_H
+#ifndef KRUSKAL_STATWIDGET_H
+#define KRUSKAL_STATWIDGET_H
 
 #include <QWidget>
 #include <QCloseEvent>
@@ -31,4 +31,4 @@ signals:
 	void closed();
 };
 
-#endif //ASD_STATWIDGET_H
+#endif // KRUSKAL_STATWIDGET_H

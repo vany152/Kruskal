@@ -1,5 +1,5 @@
-#ifndef ASD_WELCOMETOTESTING_H
-#define ASD_WELCOMETOTESTING_H
+#ifndef KRUSKAL_WELCOMETOTESTING_H
+#define KRUSKAL_WELCOMETOTESTING_H
 
 #include <QWidget>
 #include <QCloseEvent>
@@ -38,4 +38,4 @@ private slots:
 	void on_showTestingRulesButton_clicked();
 };
 
-#endif //ASD_WELCOMETOTESTING_H
+#endif // KRUSKAL_WELCOMETOTESTING_H

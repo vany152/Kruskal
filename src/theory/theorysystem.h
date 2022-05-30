@@ -1,5 +1,5 @@
-#ifndef NEWTHEORYSYSTEM_H
-#define NEWTHEORYSYSTEM_H
+#ifndef KRUSKAL_THEORYSYSTEM_H
+#define KRUSKAL_THEORYSYSTEM_H
 
 #include <QMainWindow>
 
@@ -35,4 +35,4 @@ private slots:
     void on_settingsMenuBar_triggered();
 };
 
-#endif // NEWTHEORYSYSTEM_H
+#endif // KRUSKAL_THEORYSYSTEM_H

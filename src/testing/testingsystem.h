@@ -1,5 +1,5 @@
-#ifndef ASD_TESTINGSYSTEM_H
-#define ASD_TESTINGSYSTEM_H
+#ifndef KRUSKAL_TESTINGSYSTEM_H
+#define KRUSKAL_TESTINGSYSTEM_H
 
 #include <QMainWindow>
 #include <QDialog>
@@ -52,4 +52,4 @@ private slots:
     void showEditQuestionsRules();
 };
 
-#endif //ASD_TESTINGSYSTEM_H
+#endif // KRUSKAL_TESTINGSYSTEM_H

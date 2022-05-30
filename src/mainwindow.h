@@ -1,5 +1,5 @@
-#ifndef ASD_MAINWINDOW_H
-#define ASD_MAINWINDOW_H
+#ifndef KRUSKAL_MAINWINDOW_H
+#define KRUSKAL_MAINWINDOW_H
 
 #include <QMainWindow>
 
@@ -33,4 +33,4 @@ private slots:
 };
 
 
-#endif //ASD_MAINWINDOW_H
+#endif // KRUSKAL_MAINWINDOW_H

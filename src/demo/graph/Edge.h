@@ -1,5 +1,5 @@
-#ifndef ASD_EDGE_H
-#define ASD_EDGE_H
+#ifndef KRUSKAL_EDGE_H
+#define KRUSKAL_EDGE_H
 
 #include <QGraphicsLineItem>
 
@@ -65,4 +65,4 @@ private:
 	QGraphicsTextItem * graphicsCost; ///< указатель на добавленную на графическую сцену стоимость ребра
 };
 
-#endif //ASD_EDGE_H
+#endif // KRUSKAL_EDGE_H

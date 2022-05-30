@@ -1,5 +1,5 @@
-#ifndef ASD_STAT_H
-#define ASD_STAT_H
+#ifndef KRUSKAL_STAT_H
+#define KRUSKAL_STAT_H
 
 #include <vector>
 #include <string>
@@ -73,4 +73,4 @@ private:
 	static QTime duration(const QDateTime & from, const QDateTime & to) noexcept;
 };
 
-#endif //ASD_STAT_H
+#endif // KRUSKAL_STAT_H

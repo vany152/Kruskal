@@ -1,5 +1,5 @@
-#ifndef ASD_KRUSKALDEMO_H
-#define ASD_KRUSKALDEMO_H
+#ifndef KRUSKAL_KRUSKALDEMO_H
+#define KRUSKAL_KRUSKALDEMO_H
 
 #include <QDir>
 #include <QWidget>
@@ -72,4 +72,4 @@ signals:
 	void showCycles();
 };
 
-#endif //ASD_KRUSKALDEMO_H
+#endif // KRUSKAL_KRUSKALDEMO_H

@@ -1,5 +1,5 @@
-#ifndef ASD_VERTEX_H
-#define ASD_VERTEX_H
+#ifndef KRUSKAL_VERTEX_H
+#define KRUSKAL_VERTEX_H
 
 class Edge;
 
@@ -77,4 +77,4 @@ private:
 	QGraphicsTextItem * graphicsLabel; ///< указатель на добавленную на графическую сцену подпись вершины
 };
 
-#endif //ASD_VERTEX_H
+#endif // KRUSKAL_VERTEX_H

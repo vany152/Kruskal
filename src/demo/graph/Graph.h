@@ -1,5 +1,5 @@
-#ifndef ASD_GRAPH_H
-#define ASD_GRAPH_H
+#ifndef KRUSKAL_GRAPH_H
+#define KRUSKAL_GRAPH_H
 
 #include <cstdint>
 #include <stack>
@@ -127,4 +127,4 @@ signals:
 	void stackChanged(const std::stack<std::array<Vertex *, 2>> & st) const;
 };
 
-#endif //ASD_GRAPH_H
+#endif // KRUSKAL_GRAPH_H

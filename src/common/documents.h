@@ -1,5 +1,5 @@
-#ifndef ASD_DOCUMENTS_H
-#define ASD_DOCUMENTS_H
+#ifndef KRUSKAL_DOCUMENTS_H
+#define KRUSKAL_DOCUMENTS_H
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -16,4 +16,4 @@ void writeJson(const QJsonObject & obj, const QString & filename);
 /// сохранение графической сцены в svg файл
 void saveSvg(QGraphicsScene * scene, const QString & path);
 
-#endif //ASD_DOCUMENTS_H
+#endif // KRUSKAL_DOCUMENTS_H

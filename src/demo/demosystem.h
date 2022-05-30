@@ -1,5 +1,5 @@
-#ifndef ASD_DEMOSYSTEM_H
-#define ASD_DEMOSYSTEM_H
+#ifndef KRUSKAL_DEMOSYSTEM_H
+#define KRUSKAL_DEMOSYSTEM_H
 
 #include <QMainWindow>
 
@@ -35,4 +35,4 @@ public slots:
 	void ShowCycles();
 };
 
-#endif //ASD_DEMOSYSTEM_H
+#endif // KRUSKAL_DEMOSYSTEM_H

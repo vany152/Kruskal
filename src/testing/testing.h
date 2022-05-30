@@ -1,5 +1,5 @@
-#ifndef ASD_TESTING_H
-#define ASD_TESTING_H
+#ifndef KRUSKAL_TESTING_H
+#define KRUSKAL_TESTING_H
 
 #include <QWidget>
 #include <QCloseEvent>
@@ -47,4 +47,4 @@ private slots:
 	void on_answerButton_clicked();
 };
 
-#endif //ASD_TESTING_H
+#endif // KRUSKAL_TESTING_H

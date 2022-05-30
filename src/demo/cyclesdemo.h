@@ -1,5 +1,5 @@
-#ifndef ASD_CYCLESDEMO_H
-#define ASD_CYCLESDEMO_H
+#ifndef KRUSKAL_CYCLESDEMO_H
+#define KRUSKAL_CYCLESDEMO_H
 
 #include <QDir>
 #include <QWidget>
@@ -77,4 +77,4 @@ signals:
 	void showKruskal();
 };
 
-#endif //ASD_CYCLESDEMO_H
+#endif // KRUSKAL_CYCLESDEMO_H

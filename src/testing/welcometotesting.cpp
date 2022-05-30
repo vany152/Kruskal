@@ -6,11 +6,11 @@ WelcomeToTesting::WelcomeToTesting(QWidget * parent) :
 		QWidget(parent), ui(new Ui::WelcomeToTesting)
 {
 	ui->setupUi(this);
-#ifdef DEBUG
+#ifndef NDEBUG
 	ui->usernameLineEdit->setText("test");
-#else // DEBUG
+#else
 	ui->startTestingButton->setEnabled(false);
-#endif // DEBUG
+#endif
 
 	setFixedSize(500, 400);
 }

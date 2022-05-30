@@ -1,5 +1,5 @@
-#ifndef ASD_ERROR_H
-#define ASD_ERROR_H
+#ifndef KRUSKAL_ERROR_H
+#define KRUSKAL_ERROR_H
 
 #include <string>
 #include <exception>
@@ -31,4 +31,4 @@ public:
 	FileError(const std::string & what) : Error(what) {}
 };
 
-#endif //ASD_ERROR_H
+#endif // KRUSKAL_ERROR_H

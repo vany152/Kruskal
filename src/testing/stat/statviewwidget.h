@@ -1,5 +1,5 @@
-#ifndef ASD_STATVIEWWIDGET_H
-#define ASD_STATVIEWWIDGET_H
+#ifndef KRUSKAL_STATVIEWWIDGET_H
+#define KRUSKAL_STATVIEWWIDGET_H
 
 #include <QWidget>
 #include <QtSql>
@@ -60,4 +60,4 @@ private slots:
 	void changeParametersFields(const QString & option);
 };
 
-#endif //ASD_STATVIEWWIDGET_H
+#endif // KRUSKAL_STATVIEWWIDGET_H

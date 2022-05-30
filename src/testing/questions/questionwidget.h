@@ -1,5 +1,5 @@
-#ifndef ASD_QUESTIONWIDGET_H
-#define ASD_QUESTIONWIDGET_H
+#ifndef KRUSKAL_QUESTIONWIDGET_H
+#define KRUSKAL_QUESTIONWIDGET_H
 
 #include <vector>
 
@@ -45,4 +45,4 @@ private:
 	void formAnswers();
 };
 
-#endif //ASD_QUESTIONWIDGET_H
+#endif // KRUSKAL_QUESTIONWIDGET_H
