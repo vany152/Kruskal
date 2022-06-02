@@ -1,0 +1,161 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class MainWindow {
+    - Ui::MainWindow * ui
+
+    + MainWindow(QWidget *)
+    + ~MainWindow() override
+
+    - void displayHelloText()
+    - void on_theoryButton_clicked()
+    - void on_demoButton_clicked()
+    - void on_testingButton_clicked()
+}
+
+class DemoSystem {
+	- Ui::DemoSystem * ui
+	- KruskalDemo * kruskalDemo
+	- CyclesDemo * cyclesDemo
+
+	+ DemoSystem(QWidget *)
+	+ ~DemoSystem() override
+	- void closeEvent(QCloseEvent *) override
+	- void ShowKruskal()
+	- void ShowCycles()
+}
+MainWindow -- DemoSystem
+
+class GraphDemo {
+    + GraphDemo(QWidget * parent, const QString & tempDirName, const QRect & sceneRect, const QRect & internalSceneRect)
+    + virtual ~GraphDemo() = 0
+
+    # QGraphicsScene * scene
+    # QGraphicsScene * internalScene
+    # std::unique_ptr<Graph> graph
+
+    # std::list<QGraphicsSvgItem *> demoSteps
+    # std::list<QGraphicsSvgItem*>::iterator currentStep
+
+    # QDir tmp
+    # int snapshotNumber = 1000
+
+    # static std::unique_ptr<Graph> generateGraph() noexcept
+    # void loadDemo()
+}
+
+class CyclesDemo {
+	- Ui::CyclesDemo * ui
+	- QGraphicsTextItem * stackView
+
+	+ CyclesDemo(QWidget * parent)
+    + ~CyclesDemo() override
+
+	- void on_prevStepButton_clicked()
+	- void on_nextStepButton_clicked()
+	- void on_toBeginOfDemoButton_clicked()
+	- void on_toEndOfDemoButton_clicked()
+	- void on_startButton_clicked()
+	- void on_switchDemoButton_clicked()
+	- void takeSnapshot(QGraphicsScene *)
+	- void displayStack(const std::stack<std::pair<Vertex *, Vertex *>> & st) noexcept
+
+	- void switchDemo()
+}
+GraphDemo <|-- CyclesDemo
+DemoSystem <-- CyclesDemo
+
+class KruskalDemo {
+	- Ui::KruskalDemo * ui
+	- std::shared_ptr<Graph> mst
+
+    + KruskalDemo(QWidget * parent)
+    + ~KruskalDemo() override
+
+	- void on_prevStepButton_clicked()
+	- void on_nextStepButton_clicked()
+	- void on_toBeginOfDemoButton_clicked()
+	- void on_toEndOfDemoButton_clicked()
+	- void on_switchDemoButton_clicked()
+	- void takeSnapshot(QGraphicsScene * scene)
+
+	- void switchDemo()
+}
+GraphDemo <|-- KruskalDemo
+DemoSystem <-- KruskalDemo
+
+class Graph {
+    - std::list<Vertex> vertices
+    - std::list<Edge> edges
+    - QGraphicsScene * scene
+    - QPoint graphCenter
+    - uint64_t graphDiameter
+
+    - void takeSnapshot(QGraphicsScene * scene) const
+    - void stackChanged(std::stack<std::pair<Vertex *, Vertex *>> &) const
+
+	+ Graph(size_t numberOfVertices)
+	+ Graph(const Graph & graph)
+	+ void RandomlyLinkVertices(size_t numberOfEdges, int minEdgeCost, int maxEdgeCost)
+	+ void Kruskal(Graph & mst)
+	+ static bool DoesPathExist(std::list<Edge *> & path, Vertex *, Vertex *, Vertex *)
+	+ void CheckEdgeInCycleDemo(Edge * edge)
+	+ void PrepareToPaint(QPoint, int64_t, QGraphicsScene *)
+	+ void Paint(uint32_t, uint32_t)
+	+ void HideEdges()
+	+ Edge * FindEdge(char, char) const noexcept
+	+ Edge * FindEdge(Edge) const noexcept
+	+ Vertex * FindVertex(char label) noexcept
+}
+CyclesDemo o-- Graph
+KruskalDemo o-- Graph
+
+enum State {
+    Unvisited
+    Visited
+}
+class Vertex {
+	- char label
+	- std::vector<Edge *> edges
+	- QGraphicsScene * scene
+	- std::shared_ptr<QPoint> labelPos
+	- std::shared_ptr<QRect> ellipse
+	- QGraphicsEllipseItem * graphicsEllipse
+	- QGraphicsTextItem * graphicsLabel
+
+	+ State state
+	+ Vertex(char)
+	+ void PrepareToPaint(QPoint, QPoint, QSize, QGraphicsScene *)
+	+ QPoint FindLabelPos(QPoint)
+	+ void Paint(QPen, QBrush)
+	+ QPoint Coordinates()
+	+ void Show()
+	+ void SetColor(int)
+	+ char GetLabel()
+}
+Vertex *-up- State
+Graph "1" *-- "..." Vertex
+
+class Edge {
+	- Vertex * from
+	- Vertex * to
+	- int cost
+	- QGraphicsScene * scene
+	- std::shared_ptr<QPoint> costPos
+	- std::shared_ptr<QLine> edge
+	- QGraphicsLineItem * graphicsEdge
+	- QGraphicsTextItem * graphicsCost
+
+	+ Edge(Vertex *, Vertex *, int) noexcept
+	+ void PrepareToPaint(QPoint, QGraphicsScene *)
+	+ QPoint FindCostPos(QPoint) const noexcept
+	+ void Paint(QPen)
+	+ void SetPen(QPen)
+	+ void Hide() noexcept
+	+ void Show() noexcept
+	+ QString GetName() const
+}
+Graph "1" *-- "..." Edge
+
+
+@enduml

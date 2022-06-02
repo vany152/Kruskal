@@ -1,0 +1,68 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class MainWindow {
+    - Ui::MainWindow * ui
+
+    + MainWindow(QWidget *)
+    + ~MainWindow() override
+
+    - void displayHelloText()
+    - void on_theoryButton_clicked()
+    - void on_demoButton_clicked()
+    - void on_testingButton_clicked()
+}
+
+class TheorySystem {
+    - Ui::TheorySystem * ui
+
+    + TheorySystem(QWidget *)
+    + ~TheorySystem()
+
+    - void displaySource()
+    - void on_prevPageButton_clicked()
+    - void on_nextPageButton_clicked()
+    - void urlChanged()
+    - void on_settingsMenuBar_triggered()
+}
+MainWindow <-- TheorySystem
+
+class DemoSystem {
+	- Ui::DemoSystem * ui
+	- KruskalDemo * kruskalDemo
+	- CyclesDemo * cyclesDemo
+
+	+ DemoSystem(QWidget *)
+	+ ~DemoSystem() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void ShowKruskal()
+	- void ShowCycles()
+}
+MainWindow <-- DemoSystem
+
+class TestingSystem {
+	- Ui::TestingSystem * ui
+	- WelcomeToTesting * welcomeToTestingWidget
+	- Testing * testingWidget
+	- StatWidget * statWidget
+	- QDialog * testingRulesDialog
+    - QDialog * editQuestionRulesDialog
+	- std::shared_ptr<Stat> stat
+
+	+ TestingSystem(QWidget *)
+	+ ~TestingSystem() override
+
+	- void formTestingRulesDialog()
+    - void formEditQuestionsRulesDialog()
+	- void on_openSettingsMenu_triggered()
+	- void on_statMenu_triggered()
+	- void startTest(const QString & username)
+	- void saveStat()
+	- void showStat()
+	- void showTestingRules()
+    - void showEditQuestionsRules()
+}
+MainWindow <-- TestingSystem
+
+@enduml
