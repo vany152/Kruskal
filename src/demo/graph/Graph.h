@@ -5,6 +5,7 @@
 #include <stack>
 
 #include <QGraphicsScene>
+#include <QPointer>
 #include <QObject>
 
 #include "Edge.h"
@@ -21,31 +22,32 @@ Q_OBJECT
 public:
 	/**
 	 * @brief конструктор класса
-	 * @param numberOfVertexes количество вершин графа
-	 * @param numberOfEdges количество ребер графа
-	 * @param minEdgeCost минимальная стоимость ребра графа
-	 * @param maxEdgeCost максимальная стоимость ребра графа
+	 * @param numberOfVertices количество вершин графа
 	 */
-	explicit Graph(size_t numberOfVertexes, size_t numberOfEdges, int minEdgeCost, int maxEdgeCost) noexcept;
+	explicit Graph(size_t numberOfVertices);
 	
 	/**
 	 * @brief конструктор копирования
 	 * @details ребра и вершины копируются без графических элементов
 	 */
-	Graph(const Graph & graph) noexcept;
+	Graph(const Graph & graph);
 	
 	/**
-	* @brief генерирует граф
-	* @details генерирует ненаправленный связанный взвешенный граф без кратных ребер и петель
-	*/
-	void Generate() noexcept;
+	 * @brief случайным образом связывает вершины графа
+	 * @details в результате получается ненаправленный связанный взвешенный граф без кратных ребер и петель
+     * @param numberOfVertexes количество вершин графа
+     * @param numberOfEdges количество ребер графа
+     * @param minEdgeCost минимальная стоимость ребра графа
+     * @param maxEdgeCost максимальная стоимость ребра графа
+	 */
+    void RandomlyLinkVertices(size_t numberOfEdges, int minEdgeCost, int maxEdgeCost);
 	
 	/**
 	 * @brief алгоритм Краскала поиска минимального остовного дерева
 	 * @details по окончании выполнения алгоритма на сцене будет находиться граф с включенными ребрами, входящими в МОД
 	 * @param mst отрисованный на сцене граф, его ребра скрыты (не удалены!)
 	 */
-	void Kruskal(Graph & mst) noexcept;
+	void Kruskal(const Graph & mst);
 	
 	/**
 	 * @brief рекурсивная функция проверки наличия пути между двумя вершинами
@@ -55,7 +57,7 @@ public:
 	 * @param to вершина, в которую ищется путь
 	 * @return существует ли путь
 	 */
-	static bool DoesPathExist(std::list<Edge *> & path, const Vertex * prev, const Vertex * from, const Vertex * to) noexcept;
+	static bool DoesPathExist(std::list<Edge *> & path, const Vertex * prev, const Vertex * from, const Vertex * to);
 
 	/**
 	 * @brief пошаговая демонстрация проверки включения ребра в цикл
@@ -88,17 +90,19 @@ public:
 	 * @details выполняется поиск ребра (labelFrom, labelTo) или (labelTo, labelFrom)
 	 * @return указатель на найденное ребро или nullptr, если ребро не найдено в графе
 	 */
-	Edge * FindEdge(char labelFrom, char labelTo) noexcept;
+	Edge * FindEdge(char labelFrom, char labelTo) const noexcept;
 	
 	/// поиск ребра в графе по буквенным меткам ребра edge
-	Edge * FindEdge(const Edge & edge) noexcept;
+	Edge * FindEdge(const Edge & edge) const noexcept;
+    
+    /**
+     * @brief поиск вершины по ее буквенной метке
+     * @param label буквенная метка
+     * @return указатель на найденную вершину или nullptr, если вершина не найдена в графе
+     */
+    Vertex * FindVertex(char label) noexcept;
 
 private:
-	const size_t NUMBER_OF_VERTEXES; ///< количество вершин графа
-	const size_t NUMBER_OF_EDGES; ///< количество ребер графа
-	const int MIN_EDGE_COST; ///< минимальная стоимость ребра графа
-	const int MAX_EDGE_COST; ///< максимальная стоимость ребра графа
-	
 	/*
 	 * почему list вместо vector.
 	 * так как члены класса в памяти располагаются последовательно и размер векторов в памяти может
@@ -106,25 +110,18 @@ private:
 	 * нормально пользоваться.
 	 * для избежания проблемы используются списки.
 	 */
-	std::list<Vertex> vertexes; ///< множество вершин графа
+	std::list<Vertex> vertices; ///< множество вершин графа
 	std::list<Edge> edges; ///< множество ребер графа
 	
-	QGraphicsScene * scene; ///< графическая сцена, на которую добавляется граф
-	QPoint graphCentre; ///< координаты центра окружности графа
+	QPointer<QGraphicsScene> scene; ///< графическая сцена, на которую добавляется граф
+	QPoint graphCenter; ///< координаты центра окружности графа
 	uint64_t graphDiameter; ///< диаметр окружности графа
-
-	/**
-	 * @brief поиск вершины по ее буквенной метке
-	 * @param label буквенная метка
-	 * @return указатель на найденную вершину или nullptr, если вершина не найдена в графе
-	 */
-	Vertex * findVertex(char label) noexcept;
 	
 signals:
 	/// сигнал сохранение состояния сцены
 	void takeSnapshot(QGraphicsScene * scene) const;
 	/// стек изменился
-	void stackChanged(const std::stack<std::array<Vertex *, 2>> & st) const;
+	void stackChanged(const std::stack<std::pair<Vertex *, Vertex *>> & st) const;
 };
 
 #endif // KRUSKAL_GRAPH_H

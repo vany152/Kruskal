@@ -13,10 +13,10 @@ DemoSystem::DemoSystem(QWidget * parent) :
 	kruskalDemo = new KruskalDemo(nullptr);
 	cyclesDemo = new CyclesDemo(nullptr);
 	
-	ui->gridLayout->addWidget(kruskalDemo, 0, 2, 1, 1);
+	ui->gridLayout->addWidget(reinterpret_cast<QWidget *>(kruskalDemo), 0, 2, 1, 1);
 	
-	connect(kruskalDemo, &KruskalDemo::showCycles, this, &DemoSystem::ShowCycles);
-	connect(cyclesDemo, &CyclesDemo::showKruskal, this, &DemoSystem::ShowKruskal);
+	connect(kruskalDemo, &KruskalDemo::switchDemo, this, &DemoSystem::ShowCycles);
+	connect(cyclesDemo, &CyclesDemo::switchDemo, this, &DemoSystem::ShowKruskal);
 }
 
 DemoSystem::~DemoSystem()

@@ -9,7 +9,7 @@ class Vertex
 	friend class Graph;
 
 public:
-	enum State { Open, Locked };
+	enum State { Unvisited, Visited };
 	State state; ///< состояние вершины, необходимо для алгоритма поиска цикла на графе
 	
 	/**
@@ -18,7 +18,7 @@ public:
 	 */
 	explicit Vertex(char label) :
 			label(label),
-			state(Open),
+			state(Unvisited),
 			scene(nullptr),
 			labelPos(nullptr),
 			ellipse(nullptr),

@@ -63,6 +63,10 @@ add_executable(Kruskal
         testing/stat/stat.cpp
         testing/stat/stat.h
 
+        testing/stat/statviewwidget.cpp
+        testing/stat/statviewwidget.h
+        testing/stat/statviewwidget.ui
+
 #        theory/theorysystem.cpp
 #        theory/theorysystem.h
 #        theory/theorysystem.ui
@@ -70,6 +74,9 @@ add_executable(Kruskal
 #        theory/theorysettingswindow.cpp
 #        theory/theorysettingswindow.h
 #        theory/theorysettingswindow.ui
+
+        demo/GraphDemo.cpp
+        demo/GraphDemo.h
 
         demo/demosystem.cpp
         demo/demosystem.h
@@ -91,10 +98,6 @@ add_executable(Kruskal
         demo/cyclesdemo.cpp
         demo/cyclesdemo.h
         demo/cyclesdemo.ui
-
-        testing/stat/statviewwidget.cpp
-        testing/stat/statviewwidget.h
-        testing/stat/statviewwidget.ui
 )
 
 target_link_libraries(Kruskal

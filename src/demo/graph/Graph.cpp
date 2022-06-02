@@ -18,45 +18,28 @@ using namespace std;
 
 /**
  * @brief конструктор класса
- * @details количество вершин не должно быть нечетным и меньше 6
- * @param numberOfVertexes количество вершин графа
- * @param numberOfEdges количество ребер графа
- * @param minEdgeCost минимальная стоимость ребра графа
- * @param maxEdgeCost максимальная стоимость ребра графа
+ * @param numberOfVertices количество вершин графа
  */
-Graph::Graph(
-		size_t numberOfVertexes,
-		size_t numberOfEdges,
-		int minEdgeCost,
-		int maxEdgeCost
-) noexcept:
-		NUMBER_OF_VERTEXES(numberOfVertexes),
-		NUMBER_OF_EDGES(numberOfEdges),
-		MIN_EDGE_COST(minEdgeCost),
-		MAX_EDGE_COST(maxEdgeCost)
+Graph::Graph(size_t numberOfVertices)
 {
 	// создание вершин графа
-	for (size_t i = 0; i < NUMBER_OF_VERTEXES; ++i) { vertexes.push_back(Vertex(65 + i)); }
+	for (size_t i = 0; i < numberOfVertices; ++i) { vertices.emplace_back(65 + i); }
 }
 
-Graph::Graph(const Graph & graph) noexcept:
-		NUMBER_OF_VERTEXES(graph.NUMBER_OF_VERTEXES),
-		NUMBER_OF_EDGES(graph.NUMBER_OF_EDGES),
-		MIN_EDGE_COST(graph.MIN_EDGE_COST),
-		MAX_EDGE_COST(graph.MAX_EDGE_COST)
+Graph::Graph(const Graph & graph)
 {
 	/*
 	 * копирование вершин
 	 */
-	for (auto & vertex: graph.vertexes) { vertexes.emplace_back(vertex.label); }
+	for (auto & vertex: graph.vertices) { vertices.emplace_back(vertex.label); }
 	
 	/*
 	 * связывание вершин ребрами
 	 */
 	for (auto & edge: graph.edges)
 	{
-		Vertex * from = findVertex(edge.from->label);
-		Vertex * to = findVertex(edge.to->label);
+		Vertex * from = FindVertex(edge.from->label);
+		Vertex * to = FindVertex(edge.to->label);
 		
 		edges.emplace_back(from, to, edge.cost);
 		
@@ -66,13 +49,13 @@ Graph::Graph(const Graph & graph) noexcept:
 }
 
 /**
- * @brief генерирует граф
- * @details генерирует ненаправленный связанный взвешенный граф без кратных ребер и петель
- */
-void Graph::Generate() noexcept
+* @brief случайным образом связывает вершины графа
+* @details в результате получается ненаправленный связанный взвешенный граф без кратных ребер и петель
+*/
+void Graph::RandomlyLinkVertices(size_t numberOfEdges, int minEdgeCost, int maxEdgeCost)
 {
-    mt19937 gen(time(nullptr));
-	
+    static mt19937 gen(time(nullptr));
+    
 	/*
 	 * алгоритм генерации графа
 	 *
@@ -89,11 +72,12 @@ void Graph::Generate() noexcept
 	 * 2. последняя использованная вершина связывается со случайной вершиной, не подсоединенной к ней.
 	 */
 	
-	uniform_int_distribution<size_t> randomVertex(0, NUMBER_OF_VERTEXES - 1); // генерирует рандомные индексы
-	uniform_int_distribution<int> randomEdgeCost(MIN_EDGE_COST, MAX_EDGE_COST); // генерирует рандомные веса ребер
+    size_t numberOfVertices = vertices.size();
+	uniform_int_distribution<size_t> randomVertex(0, numberOfVertices - 1); // генерирует рандомные индексы
+	uniform_int_distribution<int> randomEdgeCost(minEdgeCost, maxEdgeCost); // генерирует рандомные веса ребер
 	
 	vector<Vertex *> unusedVertexes;
-	for (auto & i: vertexes) { unusedVertexes.push_back(&i); }
+	for (auto & i: vertices) { unusedVertexes.push_back(&i); }
 	
 	/*
 	 * в конце этапа массив edges содержит NUMBER_OF_VERTEXES ребер
@@ -103,7 +87,7 @@ void Graph::Generate() noexcept
 	unusedVertexes.front() = nullptr;
 	
 	size_t index; // индекс новой вершины
-	while (usedVertexes.size() != NUMBER_OF_VERTEXES)
+	while (usedVertexes.size() != numberOfVertices)
 	{
 		index = randomVertex(gen); // генерируем индекс новой вершины
 		
@@ -135,7 +119,7 @@ void Graph::Generate() noexcept
 	unusedVertexes[index] = nullptr;
 	oldIndex = index; // запоминаем использованный индекс
 	
-	while (edges.size() < NUMBER_OF_EDGES)
+	while (edges.size() < numberOfEdges)
 	{
 		index = randomVertex(gen);
 		if ((unusedVertexes[index] != nullptr) && (index != oldIndex - 1) && (index != oldIndex + 1))
@@ -161,7 +145,7 @@ void Graph::Generate() noexcept
  * @details по окончании выполнения алгоритма на сцене будет находиться граф с включенными ребрами, входящими в МОД
  * @param mst отрисованный на сцене граф, его ребра скрыты (не удалены!)
  */
-void Graph::Kruskal(Graph & mst) noexcept
+void Graph::Kruskal(const Graph & mst)
 {
 	/*
 	 * алгоритм Краскала:
@@ -175,7 +159,7 @@ void Graph::Kruskal(Graph & mst) noexcept
 	 */
 	
 	// internalMst - minimum spanning tree - минимальное остовное дерево
-	Graph internalMst(NUMBER_OF_VERTEXES, NUMBER_OF_EDGES, MIN_EDGE_COST, MAX_EDGE_COST);
+	Graph internalMst(vertices.size());
 	
 	// сортируем ребра текущего графа по неубыванию стоимости
 	auto edgeLess = [](const Edge & first, const Edge & second) -> bool { return first.cost < second.cost; };
@@ -188,11 +172,11 @@ void Graph::Kruskal(Graph & mst) noexcept
 		 * так как вершины в списке вершин именуются в алфавитном порядке, без проблем можно получить
 		 * индекс вершины по ее буквенному обозначению (обозначение - английская заглавная буква)
 		 */
-		auto it = internalMst.vertexes.begin();
+		auto it = internalMst.vertices.begin();
 		advance(it, edge.from->label - 65);
 		Vertex * mstPathFrom = &(*it); // вершина МОД, соответствующая началу ребра в текущем графе
 		
-		it = internalMst.vertexes.begin();
+		it = internalMst.vertices.begin();
 		advance(it, edge.to->label - 65);
 		Vertex * mstPathTo = &(*it);  // вершина МОД, соответствующая концу ребра в текущем графе
 		
@@ -238,7 +222,7 @@ void Graph::Kruskal(Graph & mst) noexcept
 					QString(mstPathFrom->GetLabel()) + QString(mstPathTo->GetLabel()) +
 					"</font> создает цикл"
 			);
-			message->setPos(mst.graphCentre.x() - 75, mst.graphCentre.y() - 200);
+			message->setPos(mst.graphCenter.x() - 75, mst.graphCenter.y() - 200);
 			emit takeSnapshot(scene); // сохраняем сцену с циклом и сообщением
 			delete message; // удаляем сообщение
 			
@@ -254,7 +238,7 @@ void Graph::Kruskal(Graph & mst) noexcept
 	 * выводим сообщение о том, что МОД неайдено
 	 */
 	QGraphicsTextItem * message = scene->addText("Минимальное остовное дерево найдено");
-	message->setPos(mst.graphCentre.x() - 75, mst.graphCentre.y() + 175);
+	message->setPos(mst.graphCenter.x() - 75, mst.graphCenter.y() + 175);
 	
 	emit takeSnapshot(scene); // сохраняем сцену с последним шагом демонстрации
 }
@@ -267,7 +251,7 @@ void Graph::Kruskal(Graph & mst) noexcept
  * @param to вершина, в которую ищется путь
  * @return существует ли путь
  */
-bool Graph::DoesPathExist(list<Edge *> & path, const Vertex * prev, const Vertex * from, const Vertex * to) noexcept
+bool Graph::DoesPathExist(list<Edge *> & path, const Vertex * prev, const Vertex * from, const Vertex * to)
 {
 	/*
 	 * используется алгоритм обхода в глубину
@@ -316,9 +300,9 @@ void Graph::CheckEdgeInCycleDemo(Edge * edge)
     Vertex * end = (edge->from->edges.size() == 1) ? edge->from : edge->to; // вершина, к которой ищется путь
 	Vertex * current = (end == edge->from) ? edge->to : edge->from; // текущая вершина
 	Vertex * prev = end; // предыдущая вершина
-	prev->state = Vertex::Locked;
+	prev->state = Vertex::Visited;
 	
-	stack<array<Vertex *, 2>> path; // путь, представлен ребрами - парами вершин
+	stack<pair<Vertex *, Vertex *>> path; // путь, представлен ребрами - парами вершин
 	path.push({prev, current}); // добавляем в путь первую вершину
 	
 	bool stop = false;
@@ -330,8 +314,8 @@ void Graph::CheckEdgeInCycleDemo(Edge * edge)
 		/*
 		 * снимаем со стека последнее добавленное ребро
 		 */
-		prev = path.top().at(0);
-		current = path.top().at(1);
+		prev = path.top().first;
+		current = path.top().second;
 		
 		/*
 		 * ищем это ребро в графе и окрашиваем его
@@ -343,14 +327,14 @@ void Graph::CheckEdgeInCycleDemo(Edge * edge)
 		/*
 		 * если попали в открытую точку, перекрашиваем ее до снапшота
 		 */
-		if (current->state == Vertex::Open) { current->SetColor(0xff1a1a); }
+		if (current->state == Vertex::Unvisited) { current->SetColor(0xff1a1a); }
 		emit takeSnapshot(scene); // сохраняем состояние сцены
 		
 		if (current == end) { stop = true; } // если пришли в искомую вершину, алгоритм завершен
 		
-		if (!stop && current->state == Vertex::Open) // если пришли в открытую вершину
+		if (!stop && current->state == Vertex::Unvisited) // если пришли в открытую вершину
 		{
-			current->state = Vertex::Locked; // закрываем ее
+			current->state = Vertex::Visited; // закрываем ее
 			
 			size_t stackSizeBefore = path.size();
 			for (auto & _edge: current->edges) // добавляем ее ребра в стек
@@ -360,7 +344,7 @@ void Graph::CheckEdgeInCycleDemo(Edge * edge)
 			}
 			if (path.size() != stackSizeBefore) { emit stackChanged(path); } // отображаем изменения стека ребер
 		}
-		else if (!stop && current->state == Vertex::Locked) // если пришли в закрытую вершину
+		else if (!stop && current->state == Vertex::Visited) // если пришли в закрытую вершину
 		{
 			currentEdge->SetPen(defaultPen); // красим ее в обычный цвет
 			path.pop(); // удаляем из пути ребро с концом в текущей вершине
@@ -383,7 +367,7 @@ void Graph::CheckEdgeInCycleDemo(Edge * edge)
 		message->setHtml("Ребро <font color=\"#239b56\">" + edge->GetName() + "</font> не входит в цикл");
 	}
 	message->toHtml();
-	message->setPos(graphCentre.x() - 75, graphCentre.y() + 175);
+	message->setPos(graphCenter.x() - 75, graphCenter.y() + 175);
 	
 	emit takeSnapshot(scene); // сохраняем состояние сцены в конце алгоритма
 }
@@ -399,7 +383,7 @@ void Graph::PrepareToPaint(const QPoint & _graphCentre, int64_t _graphDiameter, 
 {
 	if (!_graphicsScene) { throw invalid_argument("graphicsScene не может быть нулевым указателем"); }
 	scene = _graphicsScene;
-	graphCentre = _graphCentre;
+    graphCenter = _graphCentre;
 	graphDiameter = _graphDiameter;
 	
 	/*
@@ -408,30 +392,30 @@ void Graph::PrepareToPaint(const QPoint & _graphCentre, int64_t _graphDiameter, 
 	// первую вершину обрабатываем отдельно
 	Vertex * firstVertex = edges.front().from;
 	firstVertex->PrepareToPaint(
-			graphCentre,
-			QPoint(
-					graphCentre.x(),
-					graphDiameter + graphCentre.y()
+            graphCenter,
+            QPoint(
+                    graphCenter.x(),
+                    graphDiameter + graphCenter.y()
 			),
-			QSize(7, 7),
-			scene
+            QSize(7, 7),
+            scene
 	);
 	
 	auto it = edges.begin();
-	for (size_t i = 1; i < NUMBER_OF_VERTEXES; ++i, ++it)
+	for (size_t i = 1, numberOfVertices = vertices.size(); i < numberOfVertices; ++i, ++it)
 	{
 		Vertex * currentVertex = it->to;
 		QPoint currentCoordinates(
-				sin(i * 2 * PI / NUMBER_OF_VERTEXES) * graphDiameter + graphCentre.x(),
-				cos(i * 2 * PI / NUMBER_OF_VERTEXES) * graphDiameter + graphCentre.y()
+				sin(i * 2 * PI / numberOfVertices) * graphDiameter + graphCenter.x(),
+				cos(i * 2 * PI / numberOfVertices) * graphDiameter + graphCenter.y()
 		);
-		currentVertex->PrepareToPaint(graphCentre, currentCoordinates, QSize(7, 7), scene);
+		currentVertex->PrepareToPaint(graphCenter, currentCoordinates, QSize(7, 7), scene);
 	}
 	
 	/*
 	 * генерация линий ребер
 	 */
-	for (auto & edge: edges) { edge.PrepareToPaint(graphCentre, scene); }
+	for (auto & edge: edges) { edge.PrepareToPaint(graphCenter, scene); }
 }
 
 /**
@@ -450,7 +434,7 @@ void Graph::Paint(uint32_t edgeColor, uint32_t vertexColor)
 	 * 4. каждое ребро имеет стоимость прохода по ней
 	 */
 	
-	for (auto & vertex: vertexes) { vertex.Paint(QPen(vertexColor), QBrush(vertexColor)); }
+	for (auto & vertex: vertices) { vertex.Paint(QPen(vertexColor), QBrush(vertexColor)); }
 	for (auto & edge: edges) { edge.Paint(QPen(QBrush(edgeColor), 2)); }
 }
 
@@ -465,48 +449,39 @@ void Graph::HideEdges()
  * @details выполняется поиск ребра (labelFrom, labelTo) или (labelTo, labelFrom)
  * @return указатель на найденное ребро или nullptr, если ребро не найдено в графе
  */
-Edge * Graph::FindEdge(char labelFrom, char labelTo) noexcept
+Edge * Graph::FindEdge(char labelFrom, char labelTo) const noexcept
 {
-	Edge * e{nullptr};
 	for (auto & edge: edges)
 	{
 		if ((edge.from->label == labelFrom && edge.to->label == labelTo) ||
 		    (edge.from->label == labelTo && edge.to->label == labelFrom))
 		{
-			e = &edge;
-			break;
+            return const_cast<Edge *>(&edge);
 		}
 	}
 	
-	return e;
+	return nullptr;
 }
 
 /// поиск ребра в графе по буквенным меткам ребра edge
-Edge * Graph::FindEdge(const Edge & edge) noexcept
+Edge * Graph::FindEdge(const Edge & edge) const noexcept
 {
 	return FindEdge(edge.from->label, edge.to->label);
 }
-
-/** **************************************************** PRIVATE *************************************************** **/
 
 /**
  * @brief поиск вершины по ее буквенной метке
  * @param label буквенная метка
  * @return указатель на найденную вершину или nullptr, если вершина не найдена в графе
  */
-Vertex * Graph::findVertex(char label) noexcept
+Vertex * Graph::FindVertex(char label) noexcept
 {
-	Vertex * v{nullptr};
-	for (auto & vertex: vertexes)
+	for (auto & vertex: vertices)
 	{
-		if (vertex.label == label)
-		{
-			v = &vertex;
-			break;
-		}
+		if (vertex.label == label) { return &vertex; }
 	}
 	
-	return v;
+	return nullptr;
 }
 
 

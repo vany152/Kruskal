@@ -127,7 +127,7 @@
     </layout>
    </item>
    <item row="0" column="0" rowspan="7">
-    <widget class="QPushButton" name="toKruskalDemoButton">
+    <widget class="QPushButton" name="switchDemoButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
