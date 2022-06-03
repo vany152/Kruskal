@@ -5,12 +5,11 @@
 #include "testingwidget.h"
 #include "ui_testingwidget.h"
 #include "../common/constants.h"
-#include "../common/Error.h"
 
 using namespace std;
 
 TestingWidget::TestingWidget(const std::shared_ptr<SessionStat> & stat, QWidget * parent) :
-        QWidget(parent), ui(new Ui::Testing), currentQuestion(0), currentSessionStat(stat)
+        QWidget(parent), ui(new Ui::TestingWidget), currentQuestion(0), currentSessionStat(stat)
 {
 	ui->setupUi(this);
 	
