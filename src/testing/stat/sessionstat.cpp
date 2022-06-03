@@ -2,7 +2,7 @@
 
 #include <QtSql>
 
-#include "stat.h"
+#include "sessionstat.h"
 
 /** **************************************************** PUBLIC **************************************************** **/
 
@@ -11,11 +11,9 @@
  * @param question вопрос
  * @param rate полученный балл
  */
-void Stat::AddQuestionRate(const shared_ptr<Question> & question, int rate) noexcept
+void SessionStat::AddQuestionRate(const std::shared_ptr<Question> & question, int rate) noexcept
 {
 	questionsRate.emplace_back(question, rate);
-	userRate += rate;
-	maxRate += question->GetComplexity();
 }
 
 /**
@@ -32,7 +30,7 @@ void Stat::AddQuestionRate(const shared_ptr<Question> & question, int rate) noex
  * 7. Процент выполнения INTEGER
  * @param dbname имя файла базы данных
  */
-void Stat::Save(const QString & dbname)
+void SessionStat::Save(const QString & dbname)
 {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "dbsave");
 	db.setDatabaseName(dbname);
@@ -68,6 +66,8 @@ void Stat::Save(const QString & dbname)
 				  ":percentage);"
 	);
 	
+    int32_t userRate = calculateUserRate();
+    int32_t maxRate = calculateMaxRate();
 	query.bindValue(":username", username);
 	query.bindValue(":testStart", startTime.toString("yyyy-MM-dd  HH:mm:ss"));
 	query.bindValue(":testFinish", finishTime.toString("yyyy-MM-dd  HH:mm:ss"));
@@ -81,17 +81,18 @@ void Stat::Save(const QString & dbname)
 }
 
 /// вывод данных класса в строку
-QString Stat::ToString() const
+QString SessionStat::ToHtmlString() const
 {
 	if (!startTime.isValid()) { throw StatError("невалидное время начала тестирования"); }
 	if (!finishTime.isValid()) { throw StatError("невалидное время окончания тестирования"); }
 	if (startTime > finishTime) { throw StatError("тестирование не может начинаться позже, чем заканчиваться"); }
 	
+    QString datetimeFormat = "hh:mm:ss";
 	QString result(
-			"Имя пользователя: " + username + '\n' +
-			"Начало тестирования: " + startTime.toString() + '\n' +
-			"Окончание тестирования: " + finishTime.toString() + '\n' +
-			"Продолжительность тестирования: " + duration(startTime, finishTime).toString() + "\n\n"
+			"Имя пользователя: <b>" + username + "</b><br>" +
+			"Начало тестирования: <b>" + startTime.toString(datetimeFormat) + "</b><br>" +
+			"Окончание тестирования: <b>" + finishTime.toString(datetimeFormat) + "</b><br>" +
+			"Продолжительность тестирования: <b>" + duration(startTime, finishTime).toString(datetimeFormat) + "</b><br><br>"
 	);
 	
 	/*
@@ -104,41 +105,66 @@ QString Stat::ToString() const
 		int max = questionsRate[i].first->GetComplexity(); // максимальный балл за вопрос
 		int obtained = questionsRate[i].second; // полученный балл за вопрос
 		
-		tmp += "Вопрос " + QString::number(i + 1) + ": " +
-		       QString::number(obtained) + " / " + QString::number(max) + "\n";
+		tmp += "Вопрос " + QString::number(i + 1) + ": <b>" +
+		       QString::number(obtained) + " / " + QString::number(max) + "</b><br>";
 	}
 	
-	result += "Набрано баллов: " + QString::number(userRate) +
-	          " из " + QString::number(maxRate) + ":\n" +
+	result += "Набрано баллов: " + QString::number(calculateUserRate()) +
+	          " из " + QString::number(calculateMaxRate()) + ":<br>" +
 	          tmp;
 	
 	return result;
 }
 
 /// установка времени начала теста
-void Stat::SetStartTime(const QDateTime & _startTime)
+void SessionStat::SetStartTime(const QDateTime & _startTime)
 {
 	if (!_startTime.isValid()) { throw StatError("невалидное время начала тестирования"); }
-	Stat::startTime = _startTime;
+    SessionStat::startTime = _startTime;
 }
 
 /// установка времени окончания теста
-void Stat::SetFinishTime(const QDateTime & _finishTime)
+void SessionStat::SetFinishTime(const QDateTime & _finishTime)
 {
 	if (!_finishTime.isValid()) { throw StatError("невалидное время окончания тестирования"); }
-	Stat::finishTime = _finishTime;
+    SessionStat::finishTime = _finishTime;
 }
 
 /** *************************************************** PRIVATE **************************************************** **/
 
 /// вычисление продолжительности между двумя временными точками
-QTime Stat::duration(const QDateTime & from, const QDateTime & to) noexcept
+QTime SessionStat::duration(const QDateTime & from, const QDateTime & to) noexcept
 {
 	uint64_t secs = from.secsTo(to);
-	uint64_t h = secs / 3600;
-	uint64_t m = secs / 60;
-	uint64_t s = secs % 60;
+    int h = secs / 3600;
+    int m = secs / 60;
+    int s = secs % 60;
 	QTime res(h, m, s);
 	
 	return res;
+}
+
+/**
+ * @brief подсчет набранного пользователем балла
+ * @return набранный балл
+ */
+int SessionStat::calculateUserRate() const noexcept
+{
+    int userRate = 0;
+    for (const auto & question : questionsRate) { userRate += question.second; }
+    
+    return userRate;
+}
+
+/**
+ * @brief подсчет максимального балла за тест
+ * @return максимальный балл
+ */
+int SessionStat::calculateMaxRate() const noexcept
+{
+    int maxRate = 0;
+    // сложность вопроса = количество баллов за верный ответ
+    for (const auto & question : questionsRate) { maxRate += question.first->GetComplexity(); }
+    
+    return maxRate;
 }

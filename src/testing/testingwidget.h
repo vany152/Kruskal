@@ -1,35 +1,32 @@
-#ifndef KRUSKAL_TESTING_H
-#define KRUSKAL_TESTING_H
+#ifndef KRUSKAL_TESTINGWIDGET_H
+#define KRUSKAL_TESTINGWIDGET_H
 
 #include <QWidget>
 #include <QCloseEvent>
 #include <vector>
 
 #include "questions/questionwidget.h"
-#include "stat/stat.h"
-
-using std::vector;
-using std::shared_ptr;
+#include "stat/sessionstat.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Testing; }
+namespace Ui { class TestingWidget; }
 QT_END_NAMESPACE
 
-class Testing : public QWidget
+class TestingWidget : public QWidget
 {
 Q_OBJECT
 
 public:
-	explicit Testing(const std::shared_ptr<Stat> & stat, QWidget * parent = nullptr);
+	explicit TestingWidget(const std::shared_ptr<SessionStat> & stat, QWidget * parent = nullptr);
 	
-	~Testing() override;
+	~TestingWidget() override;
 
 private:
-	Ui::Testing * ui;
+	Ui::TestingWidget * ui;
     size_t currentQuestion; ///< индекс текущего вопроса текущий вопрос
     size_t amountOfQuestions; ///< количество вопросов
-	vector<shared_ptr<QuestionWidget>> questions; ///< вопросы
-	shared_ptr<Stat> stat; ///< статистика по текущему тестированию
+	std::vector<std::shared_ptr<QuestionWidget>> questions; ///< вопросы
+	std::shared_ptr<SessionStat> currentSessionStat; ///< статистика по текущему тестированию
 	
 	/**
 	 * @brief добавление вопросов из файла в список вопросов
@@ -47,4 +44,4 @@ private slots:
 	void on_answerButton_clicked();
 };
 
-#endif // KRUSKAL_TESTING_H
+#endif // KRUSKAL_TESTINGWIDGET_H

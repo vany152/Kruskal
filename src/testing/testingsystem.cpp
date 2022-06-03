@@ -5,7 +5,7 @@
 #include "ui_testingsystem.h"
 
 #include "testingsettingswindow.h"
-#include "stat/statviewwidget.h"
+#include "stat/statdatabaseviewwidget.h"
 #include "../common/documents.h"
 #include "../common/constants.h"
 
@@ -123,7 +123,7 @@ void TestingSystem::on_openSettingsMenu_triggered()
 /// вывод виджета с базой данных статистики
 void TestingSystem::on_statMenu_triggered()
 {
-	StatViewWidget * statView = new StatViewWidget(databasePath, nullptr);
+	StatDatabaseViewWidget * statView = new StatDatabaseViewWidget(databasePath, nullptr);
 	statView->show();
 }
 
@@ -138,26 +138,26 @@ void TestingSystem::startTest(const QString & username)
 	/*
 	 * создаем класс, который будет хранить статистику
 	 */
-	stat.reset(new Stat(username));
-	stat->SetStartTime(QDateTime::currentDateTime());
+	currentSessionStat.reset(new SessionStat(username));
+	currentSessionStat->SetStartTime(QDateTime::currentDateTime());
 	
 	/*
 	 * создаем виджет, на который будут выводиться вопросы
 	 */
-	try { testingWidget = new Testing(stat); }
+	try { testingWidget = new TestingWidget(currentSessionStat); }
     catch (FileError) { close(); return; }
 	
 	ui->gridLayout->addWidget(testingWidget, 0, 0);
 	testingWidget->show();
 	
-	connect(testingWidget, &Testing::closed, this, &TestingSystem::showStat);
-	connect(testingWidget, &Testing::closed, this, &TestingSystem::saveStat);
+	connect(testingWidget, &TestingWidget::closed, this, &TestingSystem::showStat);
+	connect(testingWidget, &TestingWidget::closed, this, &TestingSystem::saveStat);
 }
 
 /// сохранение статистики в базу данных
 void TestingSystem::saveStat()
 {
-	stat->Save(databasePath);
+	currentSessionStat->Save(databasePath);
 }
 
 /// завершение теста и вывод статистики
@@ -171,13 +171,13 @@ void TestingSystem::showStat()
 	/*
 	 * сохраняем время завершения теста
 	 */
-	stat->SetFinishTime(QDateTime::currentDateTime());
+	currentSessionStat->SetFinishTime(QDateTime::currentDateTime());
 	
 	/*
 	 * создаем виджет, на который будет выведена статистика
 	 */
-	try { statWidget = new StatWidget(stat, ui->centralwidget); }
-    catch (Stat::StatError) { close(); return; }
+	try { statWidget = new SessionStatWidget(currentSessionStat, ui->centralwidget); }
+    catch (SessionStat::StatError) { close(); return; }
 	ui->gridLayout->addWidget(statWidget, 0, 0);
 	statWidget->show();
 }

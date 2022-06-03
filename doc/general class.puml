@@ -189,120 +189,18 @@ Graph "1" *-- "..." Edge
 
 ' '''''''''''''''''''''''''''''''''''''''''''''''''' TESTING SYSTEM '''''''''''''''''''''''''''''''''''''''''''''''''' '
 
-class QuestionWidget {
-	- Ui::QuestionWidget * ui
-	- QTextBrowser * questionTextBrowser
-	- shared_ptr<Question> question
-	- vector<QCheckBox *> answersCheckBoxes
-	- void formAnswers()
-	
-	+ QuestionWidget(shared_ptr<Question>, QWidget *, QTextBrowser *)
-	+ ~QuestionWidget() override
-	+ void Display()
-	+ int RateAnswer()
-	+ shared_ptr<Question> GetQuestion()
-}
-Testing "1" *-- "..." QuestionWidget
-
-enum Complexity { 
-    simple 
-    medium 
-    hard 
-}
-class Question {
-	- QString question
-	- Complexity complexity
-	- vector<QString> answers
-	- set<int> correctAnswers
-	
-	+ Question()
-	+ Question(QString, std::vector<QString>, std::set<int>, Complexity)
-	+ Question(QJsonObject)
-	+ int RateAnswer(std::set<int>) const noexcept
-	+ QString GetQuestion() const noexcept
-	+ vector<QString> GetAnswers() const noexcept
-	+ Complexity GetComplexity() const noexcept
-}
-Question *- Complexity
-QuestionWidget o- Question
-
-class StatWidget {
-    - Ui::StatWidget * ui
-	- shared_ptr<Stat> stat
-	- void closed()
-	
-	+ StatWidget(shared_ptr<Stat>, QWidget *)
-	+ ~StatWidget() override
-	- void closeEvent(QCloseEvent *) override
-}
-TestingSystem o-- StatWidget
-
-class StatViewWidget {
-	- Ui::StatViewWidget * ui
-	- QSqlDatabase * db 
-	- QSqlTableModel * model
-	
-	+ StatViewWidget(QString, QWidget *)
-	+ ~StatViewWidget() override
-	- void setVisibleUsernameFields(bool)
-	- void setVisibleTestingPeriodFields(bool)
-	- void setVisibleTestingDurationFields(bool)
-	- void setVisiblePercentFields(bool)
-	- void on_showButton_clicked()
-	- void on_clearFilterButton_clicked()
-	- void changeParametersFields(QString)
-}
-TestingSystem <-- StatViewWidget
-
-class StatError {
-    + StatError(std::string)
-}
-Error <|-left- StatError
-Stat +-- StatError
-
-class Stat {
-	- QString username
-	- QDateTime startTime
-	- QDateTime finishTime
-	- int userRate
-	- int maxRate
-	- std::vector<pair<shared_ptr<Question>, int>> questionsRate
-
-	+ Stat(QString)
-	+ void AddQuestionRate(shared_ptr<Question>, int) noexcept
-	+ void Save(QString)
-	+ QString ToString() const
-	+ void SetStartTime(QDateTime)
-	+ void SetFinishTime(QDateTime)
-	- static QTime duration(QDateTime, QDateTime) noexcept
-}
-TestingSystem o-- Stat
-
-class WelcomeToTesting {
-	- Ui::WelcomeToTesting * ui
-
-	+ WelcomeToTesting(QWidget *)
-	+ ~WelcomeToTesting() override
-	- void closeEvent(QCloseEvent *) override
-	- void closed(QString username)
-	- void testingRulesButtonClicked()
-	- void on_startTestingButton_clicked()
-	- void on_usernameLineEdit_textChanged()
-	- void on_showTestingRulesButton_clicked()
-}
-TestingSystem o-- WelcomeToTesting
-
 class TestingSystem {
 	- Ui::TestingSystem * ui
 	- WelcomeToTesting * welcomeToTestingWidget
-	- Testing * testingWidget
-	- StatWidget * statWidget
+	- TestingWidget * testingWidget
+	- SessionStatWidget * SessionStatWidget
 	- QDialog * testingRulesDialog
     - QDialog * editQuestionRulesDialog
-	- std::shared_ptr<Stat> stat 
-	
+	- std::shared_ptr<SessionStat> currentSessionStat
+
 	+ TestingSystem(QWidget *)
 	+ ~TestingSystem() override
+
 	- void formTestingRulesDialog()
     - void formEditQuestionsRulesDialog()
 	- void on_openSettingsMenu_triggered()
@@ -315,33 +213,177 @@ class TestingSystem {
 }
 MainWindow <-- TestingSystem
 
+class QuestionWidget {
+	- Ui::QuestionWidget * ui
+	- QTextBrowser * questionTextBrowser
+	- shared_ptr<Question> question
+	- vector<QCheckBox *> answersCheckBoxes
+	- void formAnswers()
+
+	+ QuestionWidget(shared_ptr<Question>, QWidget *, QTextBrowser *)
+	+ ~QuestionWidget() override
+	+ void Display()
+	+ int RateAnswer()
+	+ shared_ptr<Question> GetQuestion()
+}
+TestingWidget "1" *-- "..." QuestionWidget
+
+enum Complexity {
+    simple
+    medium
+    hard
+}
+class Question {
+	- QString question
+	- Complexity complexity
+	- vector<QString> answers
+	- set<int> correctAnswers
+
+	+ Question()
+	+ Question(QString, std::vector<QString>, std::set<int>, Complexity)
+	+ Question(QJsonObject)
+	+ int RateAnswer(std::set<int>) const noexcept
+	+ QString GetQuestion() const noexcept
+	+ vector<QString> GetAnswers() const noexcept
+	+ Complexity GetComplexity() const noexcept
+}
+Question *-up- Complexity
+QuestionWidget *-- Question
+
+class SessionStatWidget {
+    - Ui::SessionStatWidget * ui
+
+	+ SessionStatWidget(shared_ptr<SessionStat>, QWidget *)
+	+ ~SessionStatWidget() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void closed()
+}
+TestingSystem *-left- SessionStatWidget
+
+class StatDatabaseViewWidget {
+	- Ui::StatDatabaseViewWidget * ui
+	- QSqlDatabase * db
+	- QSqlTableModel * model
+	- std::list<std::unique_ptr<StatDatabaseViewOption>> filterOptions
+
+	+ StatDatabaseViewWidget(QString, QWidget *)
+	+ ~StatDatabaseViewWidget() override
+
+	- void addFilterOptions()
+
+	- void on_showButton_clicked()
+	- void on_clearFilterButton_clicked()
+	- void changeParametersFields(QString)
+}
+TestingSystem <-- StatDatabaseViewWidget
+
+class StatError {
+    + StatError(std::string)
+}
+Error <|-right- StatError
+SessionStat +-- StatError
+
+class SessionStat {
+	- QString username
+	- QDateTime startTime
+	- QDateTime finishTime
+	- std::vector<std::pair<std::shared_ptr<Question>, int>> questionsRate
+
+	+ SessionStat(QString)
+	+ void AddQuestionRate(std::shared_ptr<Question>, int) noexcept
+	+ void Save(QString)
+	+ QString ToHtmlString() const
+	+ void SetStartTime(QDateTime)
+	+ void SetFinishTime(QDateTime)
+
+	- static QTime duration(QDateTime, QDateTime) noexcept
+	- int calculateUserRate() const noexcept
+	- int calculateMaxRate() const noexcept
+}
+
+TestingSystem *-- SessionStat
+
+class WelcomeToTesting {
+	- Ui::WelcomeToTesting * ui
+
+	+ WelcomeToTesting(QWidget *)
+	+ ~WelcomeToTesting() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void closed(QString username)
+	- void testingRulesButtonClicked()
+	- void on_startTestingButton_clicked()
+	- void on_usernameLineEdit_textChanged()
+	- void on_showTestingRulesButton_clicked()
+}
+TestingSystem *-left- WelcomeToTesting
+
 class TestingSettingsWindow {
 	- Ui::TestingSettingsWindow * ui
 
 	+ TestingSettingsWindow(QWidget *)
-	+ ~TestingSettingsWindow() override	
+	+ ~TestingSettingsWindow() override
 	- void on_changeQuestionsSourceButton_clicked()
 	- void on_saveButton_clicked()
 }
 TestingSystem <- TestingSettingsWindow
 
-class Testing {
-	- Ui::Testing * ui
+class TestingWidget {
+	- Ui::TestingWidget * ui
 	- int currentQuestion
 	- int amountOfQuestions
-	- vector<shared_ptr<QuestionWidget>> questions
-	- shared_ptr<Stat> stat
+	- std::vector<std::shared_ptr<QuestionWidget>> questions
+	- std::shared_ptr<SessionStat> currentSessionStat
 
-    + Testing(std::shared_ptr<Stat>, QWidget *)
-    + ~Testing() override
+    + TestingWidget(std::shared_ptr<SessionStat>, QWidget *)
+    + ~TestingWidget() override
 
 	- void readQuestions()
 	- void displayCurrentQuestion()
 	- void closeEvent(QCloseEvent *) override
+
 	- void closed()
+
 	- void on_answerButton_clicked()
 }
-TestingSystem o-- Testing
+TestingSystem *-- TestingWidget
+
+class StatDatabaseViewOption {
+    - const std::vector<QWidget *> fields
+    - const QString optionName
+
+    + StatDatabaseViewOption(const QString & optionName, std::vector<QWidget *> & fields)
+    + virtual ~StatDatabaseViewOption() = 0
+
+    + void SetFieldsVisibility(bool visible)
+    + QString GetName() const noexcept
+}
+StatDatabaseViewWidget "1" *-- "..." StatDatabaseViewOption
+
+class UsernameOption {
+    + UsernameOption(std::vector<QWidget *> & fields)
+    + ~UsernameOption() final
+}
+StatDatabaseViewOption <|-- UsernameOption
+
+class TestingPeriodOption {
+    + TestingPeriodOption(std::vector<QWidget *> & fields)
+    + ~TestingPeriodOption() final
+}
+StatDatabaseViewOption <|-- TestingPeriodOption
+
+class TestingDurationOption {
+    + TestingDurationOption(std::vector<QWidget *> & fields)
+    + ~TestingDurationOption() final
+}
+StatDatabaseViewOption <|-- TestingDurationOption
+
+class CompletionPercentage {
+    + CompletionPercentage(std::vector<QWidget *> & fields)
+    + ~CompletionPercentage() final
+}
+StatDatabaseViewOption <|-- CompletionPercentage
 
 ' '''''''''''''''''''''''''''''''''''''''''''''''''''''' COMMON '''''''''''''''''''''''''''''''''''''''''''''''''''''' '
 

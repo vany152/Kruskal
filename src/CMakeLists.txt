@@ -48,24 +48,24 @@ add_executable(Kruskal
         testing/welcometotesting.h
         testing/welcometotesting.ui
 
-        testing/stat/statwidget.cpp
-        testing/stat/statwidget.h
-        testing/stat/statwidget.ui
+        testing/stat/sessionstatwidget.cpp
+        testing/stat/sessionstatwidget.h
+        testing/stat/sessionstatwidget.ui
 
-        testing/testing.cpp
-        testing/testing.h
-        testing/testing.ui
+        testing/testingwidget.cpp
+        testing/testingwidget.h
+        testing/testingwidget.ui
 
         testing/questions/questionwidget.cpp
         testing/questions/questionwidget.h
         testing/questions/questionwidget.ui
 
-        testing/stat/stat.cpp
-        testing/stat/stat.h
+        testing/stat/sessionstat.cpp
+        testing/stat/sessionstat.h
 
-        testing/stat/statviewwidget.cpp
-        testing/stat/statviewwidget.h
-        testing/stat/statviewwidget.ui
+        testing/stat/statdatabaseviewwidget.cpp
+        testing/stat/statdatabaseviewwidget.h
+        testing/stat/statdatabaseviewwidget.ui
 
 #        theory/theorysystem.cpp
 #        theory/theorysystem.h
@@ -98,7 +98,7 @@ add_executable(Kruskal
         demo/cyclesdemo.cpp
         demo/cyclesdemo.h
         demo/cyclesdemo.ui
-)
+        testing/stat/StatDatabaseViewOption.cpp testing/stat/StatDatabaseViewOption.h)
 
 target_link_libraries(Kruskal
         Qt::Core

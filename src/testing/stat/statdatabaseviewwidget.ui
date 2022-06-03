@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StatViewWidget</class>
- <widget class="QWidget" name="StatViewWidget">
+ <class>StatDatabaseViewWidget</class>
+ <widget class="QWidget" name="StatDatabaseViewWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,32 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>StatViewWidget</string>
+   <string>StatDatabaseViewWidget</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="1">
-    <widget class="QComboBox" name="showOptionComboBox">
-     <item>
-      <property name="text">
-       <string>Имя пользователя</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Период прохождения тестирования</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Продолжительность тестирования</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Процент выполнения</string>
-      </property>
-     </item>
-    </widget>
+    <widget class="QComboBox" name="showOptionComboBox"/>
    </item>
    <item row="2" column="1">
     <layout class="QGridLayout" name="gridLayout">

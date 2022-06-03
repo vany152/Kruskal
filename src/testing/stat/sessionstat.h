@@ -1,5 +1,5 @@
-#ifndef KRUSKAL_STAT_H
-#define KRUSKAL_STAT_H
+#ifndef KRUSKAL_SESSIONSTAT_H
+#define KRUSKAL_SESSIONSTAT_H
 
 #include <vector>
 #include <string>
@@ -11,11 +11,7 @@
 #include "../questions/question.h"
 #include "../../common/Error.h"
 
-using std::pair;
-using std::shared_ptr;
-using std::unordered_map;
-
-class Stat
+class SessionStat
 {
 public:
     class StatError final : public Error { public: StatError(const std::string & what) : Error(what) {} };
@@ -24,14 +20,14 @@ public:
 	 * @brief конструктор класса
 	 * @param username имя пользователя, к которому относится статистика
 	 */
-	Stat(const QString & username) : username(username), userRate(0), maxRate(0) {}
+	SessionStat(const QString & username) : username(username){}
 	
 	/**
 	 * @brief сохранение количества полученных баллов за вопрос
 	 * @param question вопрос
 	 * @param rate полученный балл
 	 */
-	void AddQuestionRate(const shared_ptr<Question> & question, int rate) noexcept;
+	void AddQuestionRate(const std::shared_ptr<Question> & question, int rate) noexcept;
 
 	/**
 	 * @brief сохранение статистики в таблицу "statistics" базы данных SQLite 3
@@ -49,7 +45,7 @@ public:
 	void Save(const QString & dbname);
 	
 	/// вывод данных класса в строку
-	QString ToString() const;
+	QString ToHtmlString() const;
 	
 	/// установка времени начала теста
 	void SetStartTime(const QDateTime & _startTime);
@@ -60,17 +56,27 @@ private:
 	QString username; ///< имя пользователя
 	QDateTime startTime; ///< время начало теста
 	QDateTime finishTime; ///< время окончания теста
-	int userRate; ///< набранный пользователем балл
-	int maxRate; ///< максимальный балл за тестирование
 	
 	/*
-	 * из-за сортировки map'ом элементов при применении метода ToString() вопросы и соответствующие
+	 * из-за сортировки map'ом элементов при применении метода ToHtmlString() вопросы и соответствующие
 	 * им баллы будут располагаться в неверном порядке.
 	 */
-	std::vector<pair<shared_ptr<Question>, int>> questionsRate; ///< вопросы и полученные за них баллы
+	std::vector<std::pair<std::shared_ptr<Question>, int>> questionsRate; ///< вопросы и полученные за них баллы
 	
 	/// вычисление продолжительности между двумя временными точками
 	static QTime duration(const QDateTime & from, const QDateTime & to) noexcept;
+    
+    /**
+     * @brief подсчет набранного пользователем балла
+     * @return набранный балл
+     */
+    int calculateUserRate() const noexcept;
+    
+    /**
+     * @brief подсчет максимального балла за тест
+     * @return максимальный балл
+     */
+    int calculateMaxRate() const noexcept;
 };
 
-#endif // KRUSKAL_STAT_H
+#endif // KRUSKAL_SESSIONSTAT_H

@@ -1,15 +1,21 @@
-#include "statviewwidget.h"
-#include "ui_statviewwidget.h"
+#include "statdatabaseviewwidget.h"
+#include "ui_statdatabaseviewwidget.h"
 
 using namespace std;
 
 /** **************************************************** PUBLIC **************************************************** **/
 
 /// конструктор класса
-StatViewWidget::StatViewWidget(const QString & dbname, QWidget * parent) :
-		QWidget(parent), ui(new Ui::StatViewWidget)
+StatDatabaseViewWidget::StatDatabaseViewWidget(const QString & dbname, QWidget * parent) :
+		QWidget(parent), ui(new Ui::StatDatabaseViewWidget)
 {
 	ui->setupUi(this);
+    
+    /*
+     * добавляем опции фильтра записей базы данных
+     */
+    addFilterOptions();
+    for (const auto & option : filterOptions) { ui->showOptionComboBox->addItem(option->GetName()); }
 	
 	// отображаем строку ввода имени пользователя и скрываем все остальные виджеты параметров
 	changeParametersFields(ui->showOptionComboBox->currentText());
@@ -36,68 +42,50 @@ StatViewWidget::StatViewWidget(const QString & dbname, QWidget * parent) :
 	ui->tableView->setModel(model);
 	ui->tableView->resizeColumnsToContents();
 	
-	connect(ui->showOptionComboBox, &QComboBox::currentTextChanged, this, &StatViewWidget::changeParametersFields);
+	connect(ui->showOptionComboBox, &QComboBox::currentTextChanged, this, &StatDatabaseViewWidget::changeParametersFields);
 }
 
 /// деструктор класса
-StatViewWidget::~StatViewWidget()
+StatDatabaseViewWidget::~StatDatabaseViewWidget()
 {
 	db->removeDatabase(db->connectionName());
-	delete db;
+    delete db;
 	delete ui;
 }
 
 /** *************************************************** PRIVATE **************************************************** **/
 
-/**
- * @brief установление видимости виджета ввода имени пользователя
- * @param visible true - виджет отображается, false - виджет скрыт
- */
-void StatViewWidget::setVisibleUsernameFields(bool visible)
+void StatDatabaseViewWidget::addFilterOptions()
 {
-	ui->usernameLineEdit->setVisible(visible);
-}
-
-/**
- * @brief установление видимости виджетов ввода интервала тестирования
- * @param visible true - виджет отображается, false - виджет скрыт
- */
-void StatViewWidget::setVisibleTestingPeriodFields(bool visible)
-{
-	ui->testingStartLabel->setVisible(visible);
-	ui->testingStartDateTimeEdit->setVisible(visible);
-	ui->testingFinishLabel->setVisible(visible);
-	ui->testingFinishDateTimeEdit->setVisible(visible);
-}
-
-/**
- * @brief установление видимости виджетов ввода интервала продолжительности тестирования
- * @param visible true - виджет отображается, false - виджет скрыт
- */
-void StatViewWidget::setVisibleTestingDurationFields(bool visible)
-{
-	ui->durationFromLabel->setVisible(visible);
-	ui->durationFromTimeEdit->setVisible(visible);
-	ui->durationToLabel->setVisible(visible);
-	ui->durationToTimeEdit->setVisible(visible);
-}
-
-/**
- * @brief установление видимости виджетов ввода интервала процентов выполнения
- * @param visible true - виджет отображается, false - виджет скрыт
- */
-void StatViewWidget::setVisiblePercentFields(bool visible)
-{
-	ui->percentsFromLaleb->setVisible(visible);
-	ui->percentsFromSpinBox->setVisible(visible);
-	ui->percentsToLabel->setVisible(visible);
-	ui->percentsToSpinBox->setVisible(visible);
+    /*
+     * фильтр "имя пользователя"
+     */
+    std::vector<QWidget *> fields{ui->usernameLineEdit};
+    filterOptions.emplace_back(std::make_unique<UsernameOption>(fields));
+    
+    /*
+     * фильтр "период тестирования
+     */
+    fields = {ui->testingStartLabel, ui->testingStartDateTimeEdit, ui->testingFinishLabel, ui->testingFinishDateTimeEdit};
+    filterOptions.emplace_back(std::make_unique<TestingPeriodOption>(fields));
+    
+    /*
+     * фильтр "продолжительность тестирования"
+     */
+    fields = {ui->durationFromLabel, ui->durationFromTimeEdit, ui->durationToLabel, ui->durationToTimeEdit};
+    filterOptions.emplace_back(std::make_unique<TestingDurationOption>(fields));
+    
+    /*
+     * фильтр "процент выполнения"
+     */
+    fields = {ui->percentsFromLaleb, ui->percentsFromSpinBox, ui->percentsToLabel, ui->percentsToSpinBox};
+    filterOptions.emplace_back(std::make_unique<CompletionPercentage>(fields));
 }
 
 /** **************************************************** SLOTS ***************************************************** **/
 
 /// применение фильтра к табличной модели БД
-void StatViewWidget::on_showButton_clicked()
+void StatDatabaseViewWidget::on_showButton_clicked()
 {
 	QString option = ui->showOptionComboBox->currentText();
 	if (option == "Имя пользователя")
@@ -145,46 +133,14 @@ void StatViewWidget::on_showButton_clicked()
 }
 
 /// очистка фильтра табличной модели БД
-void StatViewWidget::on_clearFilterButton_clicked()
+void StatDatabaseViewWidget::on_clearFilterButton_clicked()
 {
 	model->setFilter("");
 	model->select();
 }
 
 /// отображение \ скрытие полей ввода фильтра в зависимости от текущего текста QComboBox
-void StatViewWidget::changeParametersFields(const QString & option)
+void StatDatabaseViewWidget::changeParametersFields(const QString & optionName)
 {
-	if (option == "Имя пользователя")
-	{
-		setVisibleUsernameFields(true);
-		setVisibleTestingPeriodFields(false);
-		setVisibleTestingDurationFields(false);
-		setVisiblePercentFields(false);
-	}
-	else if (option == "Период прохождения тестирования")
-	{
-		setVisibleTestingPeriodFields(true);
-		setVisibleUsernameFields(false);
-		setVisibleTestingDurationFields(false);
-		setVisiblePercentFields(false);
-	}
-	else if (option == "Продолжительность тестирования")
-	{
-		setVisibleTestingDurationFields(true);
-		setVisibleUsernameFields(false);
-		setVisibleTestingPeriodFields(false);
-		setVisiblePercentFields(false);
-	}
-	else if (option == "Процент выполнения")
-	{
-		setVisiblePercentFields(true);
-		setVisibleUsernameFields(false);
-		setVisibleTestingPeriodFields(false);
-		setVisibleTestingDurationFields(false);
-	}
+    for (auto & option : filterOptions) { option->SetFieldsVisibility(option->GetName() == optionName); }
 }
-
-
-
-
-

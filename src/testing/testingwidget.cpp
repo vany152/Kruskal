@@ -2,15 +2,15 @@
 #include <numeric>
 #include <ctime>
 
-#include "testing.h"
-#include "ui_testing.h"
+#include "testingwidget.h"
+#include "ui_testingwidget.h"
 #include "../common/constants.h"
 #include "../common/Error.h"
 
 using namespace std;
 
-Testing::Testing(const std::shared_ptr<Stat> & stat, QWidget * parent) :
-        QWidget(parent), ui(new Ui::Testing), currentQuestion(0), stat(stat)
+TestingWidget::TestingWidget(const std::shared_ptr<SessionStat> & stat, QWidget * parent) :
+        QWidget(parent), ui(new Ui::Testing), currentQuestion(0), currentSessionStat(stat)
 {
 	ui->setupUi(this);
 	
@@ -18,7 +18,7 @@ Testing::Testing(const std::shared_ptr<Stat> & stat, QWidget * parent) :
 	displayCurrentQuestion();
 }
 
-Testing::~Testing()
+TestingWidget::~TestingWidget()
 {
 	delete ui;
 }
@@ -27,7 +27,7 @@ Testing::~Testing()
  * @brief добавление вопросов из файла в список вопросов
  * @details вопросы добавляются в случайном порядке
  */
-void Testing::readQuestions()
+void TestingWidget::readQuestions()
 {
 	/*
 	 * читаем вопросы из файла с вопросами
@@ -68,24 +68,24 @@ void Testing::readQuestions()
 	amountOfQuestions = questions.size();
 }
 
-void Testing::displayCurrentQuestion()
+void TestingWidget::displayCurrentQuestion()
 {
 	ui->formLayout->insertRow(1, questions[currentQuestion].get());
 	questions[currentQuestion]->Display();
 }
 
-void Testing::closeEvent(QCloseEvent * e)
+void TestingWidget::closeEvent(QCloseEvent * e)
 {
 	emit closed();
 	e->accept();
 }
 
-void Testing::on_answerButton_clicked()
+void TestingWidget::on_answerButton_clicked()
 {
 	questions[currentQuestion]->hide();
 	ui->formLayout->takeRow(1);
 
-	stat->AddQuestionRate(
+	currentSessionStat->AddQuestionRate(
 			questions[currentQuestion]->GetQuestion(),
 			questions[currentQuestion]->RateAnswer()
 	);

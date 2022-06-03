@@ -6,8 +6,8 @@
 
 #include "questions/question.h"
 #include "welcometotesting.h"
-#include "testing.h"
-#include "stat/statwidget.h"
+#include "testingwidget.h"
+#include "stat/sessionstatwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestingSystem; }
@@ -24,11 +24,11 @@ public:
 private:
 	Ui::TestingSystem * ui;
 	WelcomeToTesting * welcomeToTestingWidget; ///< приветственный виджет
-	Testing * testingWidget; ///< виджет тестирования
-	StatWidget * statWidget; ///< виджет со статистикой
+	TestingWidget * testingWidget; ///< виджет тестирования
+	SessionStatWidget * statWidget; ///< виджет со статистикой
 	QDialog * testingRulesDialog; ///< диалоговое окно с правилами тестирования
     QDialog * editQuestionRulesDialog; ///< диалоговое окно с правилами редактирования вопросов в файле
-	std::shared_ptr<Stat> stat; ///< статистика по текущему тестированию
+	std::shared_ptr<SessionStat> currentSessionStat; ///< статистика по текущему тестированию
 	
 	/// формирование окна с информацией о правилах тестирования
 	void formTestingRulesDialog();
