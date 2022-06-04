@@ -1,8 +1,0 @@
-<map id="Graph::Kruskal" name="Graph::Kruskal">
-<area shape="rect" id="node1" title="алгоритм Краскала поиска минимального остовного дерева" alt="" coords="5,107,115,133"/>
-<area shape="rect" id="node2" href="$class_graph.html#a15f41c657db3f8e7134a81482ce6fd61" title="рекурсивная функция проверки наличия пути между двумя вершинами" alt="" coords="163,5,315,32"/>
-<area shape="rect" id="node3" href="$class_vertex.html#a7de39860e4167a015eb34524ef72cc26" title=" " alt="" coords="179,56,299,83"/>
-<area shape="rect" id="node4" href="$class_edge.html#af5d330f9a31066428e1c1c3db3242e34" title="сокрытые ребра с графической сцены" alt="" coords="195,107,282,133"/>
-<area shape="rect" id="node5" href="$class_edge.html#a421fc6825e1537c92b2316834a607ab8" title="изменение ручки, которой нарисован объект" alt="" coords="187,157,290,184"/>
-<area shape="rect" id="node6" href="$class_edge.html#aa1203deebb7af10e24ab25ac40f72c01" title="отображение ребра на графической сцене" alt="" coords="193,208,285,235"/>
-</map>

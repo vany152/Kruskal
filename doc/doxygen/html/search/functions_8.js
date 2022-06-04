@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['mainwindow_1',['MainWindow',['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow']]]
+  ['kruskal_0',['Kruskal',['../class_graph.html#a4a9be3ee7b1d671c0396c67fa68e6079',1,'Graph']]],
+  ['kruskaldemo_1',['KruskalDemo',['../class_kruskal_demo.html#abd1bc6aaa72fd2c985c4ec98a15c160b',1,'KruskalDemo']]]
 ];

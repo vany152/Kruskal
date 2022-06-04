@@ -1,10 +1,11 @@
-<map id="D:/study/asd/asd/coursework/code/demo/graph/Graph.h" name="D:/study/asd/asd/coursework/code/demo/graph/Graph.h">
-<area shape="rect" id="node1" title=" " alt="" coords="195,5,386,47"/>
+<map id="D:/dev/Kruskal/src/demo/graph/Graph.h" name="D:/dev/Kruskal/src/demo/graph/Graph.h">
+<area shape="rect" id="node1" title=" " alt="" coords="280,5,424,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,95,67,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="91,95,146,121"/>
 <area shape="rect" id="node4" title=" " alt="" coords="170,95,291,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="315,95,386,121"/>
-<area shape="rect" id="node6" href="$_edge_8h.html" title=" " alt="" coords="410,95,473,121"/>
-<area shape="rect" id="node8" href="$_vertex_8h.html" title=" " alt="" coords="497,95,567,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="375,169,508,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="315,95,389,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="413,95,483,121"/>
+<area shape="rect" id="node7" href="$_edge_8h.html" title=" " alt="" coords="507,95,570,121"/>
+<area shape="rect" id="node9" href="$_vertex_8h.html" title=" " alt="" coords="594,95,665,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="472,169,605,196"/>
 </map>

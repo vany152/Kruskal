@@ -1,6 +1,6 @@
 <map id="Graph::CheckEdgeInCycleDemo" name="Graph::CheckEdgeInCycleDemo">
 <area shape="rect" id="node1" title="пошаговая демонстрация проверки включения ребра в цикл" alt="" coords="5,81,215,108"/>
-<area shape="rect" id="node2" href="$class_graph.html#a60a1651bc370bce49b3facf7569738fc" title=" " alt="" coords="263,5,383,32"/>
+<area shape="rect" id="node2" href="$class_graph.html#a0c4c73ae39f497b5486b679fe705387d" title=" " alt="" coords="263,5,383,32"/>
 <area shape="rect" id="node3" href="$class_edge.html#ae1aa29527179a02e8a6a63ccfc5b4e29" title="возвращает метку ребра" alt="" coords="265,56,380,83"/>
 <area shape="rect" id="node5" href="$class_vertex.html#aae6739f8ec5575ced9c652a593f6bfca" title=" " alt="" coords="263,107,382,133"/>
 <area shape="rect" id="node6" href="$class_edge.html#a421fc6825e1537c92b2316834a607ab8" title="изменение ручки, которой нарисован объект" alt="" coords="271,157,374,184"/>

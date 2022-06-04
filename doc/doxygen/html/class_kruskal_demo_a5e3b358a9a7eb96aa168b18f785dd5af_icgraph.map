@@ -1,0 +1,5 @@
+<map id="KruskalDemo::switchDemo" name="KruskalDemo::switchDemo">
+<area shape="rect" id="node1" title="сигнал перехода к демонстрации алгоритма проверки включения ребра в цикл" alt="" coords="253,35,432,61"/>
+<area shape="rect" id="node2" href="$class_demo_system.html#a5128bf71952e8b9fc287656d0c6a26f4" title="конструктор класса" alt="" coords="11,5,199,32"/>
+<area shape="rect" id="node3" href="$class_kruskal_demo.html#a3e91799cd951cab13c78d18418e4b3a4" title="нажатие на кнопку смены демонстрации" alt="" coords="5,57,205,98"/>
+</map>

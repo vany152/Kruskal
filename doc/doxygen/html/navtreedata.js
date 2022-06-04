@@ -24,7 +24,8 @@
 */
 var NAVTREE =
 [
-  [ "asd coursework", "index.html", [
+  [ "Kruskal", "index.html", [
+    [ "README", "md__d__dev__kruskal_src__r_e_a_d_m_e.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -46,8 +47,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Variables", "globals_vars.html", null ]
       ] ]
     ] ]
   ] ]
@@ -55,7 +55,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_edge_8cpp.html"
+"_edge_8cpp.html",
+"testingwidget_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

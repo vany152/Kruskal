@@ -1,0 +1,5 @@
+<map id="GraphDemo" name="GraphDemo">
+<area shape="rect" id="node1" title=" " alt="" coords="153,5,283,215"/>
+<area shape="rect" id="node2" href="$class_cycles_demo.html" title=" " alt="" coords="5,263,207,487"/>
+<area shape="rect" id="node3" href="$class_kruskal_demo.html" title=" " alt="" coords="231,263,432,487"/>
+</map>

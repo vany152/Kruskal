@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_stat.html" title=" " alt="" coords="5,5,52,32"/>
+<area shape="rect" id="node1" href="$class_stat_database_view_option.html" title=" " alt="" coords="5,81,172,108"/>
+<area shape="rect" id="node2" href="$class_completion_percentage.html" title=" " alt="" coords="220,5,373,32"/>
+<area shape="rect" id="node3" href="$class_testing_duration_option.html" title=" " alt="" coords="221,56,372,83"/>
+<area shape="rect" id="node4" href="$class_testing_period_option.html" title=" " alt="" coords="227,107,366,133"/>
+<area shape="rect" id="node5" href="$class_username_option.html" title=" " alt="" coords="237,157,356,184"/>
 </map>

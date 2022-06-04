@@ -1,4 +1,5 @@
 <map id="CyclesDemo::on_startButton_clicked" name="CyclesDemo::on_startButton_clicked">
-<area shape="rect" id="node1" title="нажатие на кнопку начала демонстрации" alt="" coords="5,5,195,47"/>
-<area shape="rect" id="node2" href="$class_error.html#a570756ae8ea1f2ba66ae9620db5bd59a" title=" " alt="" coords="243,13,333,39"/>
+<area shape="rect" id="node1" title="нажатие на кнопку начала демонстрации" alt="" coords="5,23,195,65"/>
+<area shape="rect" id="node2" href="$class_graph_demo.html#aadb5a1b22a7f69045843e5ff2161179a" title="загрузка снапшотов в память программы" alt="" coords="243,5,400,32"/>
+<area shape="rect" id="node3" href="$class_error.html#a570756ae8ea1f2ba66ae9620db5bd59a" title=" " alt="" coords="276,56,367,83"/>
 </map>

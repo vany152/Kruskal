@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addquestionrate_0',['AddQuestionRate',['../class_stat.html#a0282c6013ba341ee0e363aceb23f0e33',1,'Stat']]]
+  ['_5fwhat_0',['_what',['../class_error.html#a30a2b23c0118c863a2dfa65b6956e5d9',1,'Error']]]
 ];
