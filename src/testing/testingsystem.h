@@ -9,6 +9,10 @@
 #include "testingwidget.h"
 #include "stat/sessionstatwidget.h"
 
+#ifndef NOWEBENGINE
+  #include "../common/htmlviewer.h"
+#endif
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestingSystem; }
 QT_END_NAMESPACE
@@ -26,14 +30,12 @@ private:
 	WelcomeToTesting * welcomeToTestingWidget; ///< приветственный виджет
 	TestingWidget * testingWidget; ///< виджет тестирования
 	SessionStatWidget * statWidget; ///< виджет со статистикой
-	QDialog * testingRulesDialog; ///< диалоговое окно с правилами тестирования
-    QDialog * editQuestionRulesDialog; ///< диалоговое окно с правилами редактирования вопросов в файле
 	std::shared_ptr<SessionStat> currentSessionStat; ///< статистика по текущему тестированию
-	
-	/// формирование окна с информацией о правилах тестирования
-	void formTestingRulesDialog();
-    /// формирование окна с информацией о правилах редактирования вопрсов в файле
-    void formEditQuestionsRulesDialog();
+#ifndef NOWEBENGINE
+    HtmlViewer * viewer; ///< просмотрщие HTML файлов
+#endif
+    
+    void showRef(const QString & refSectionName);
 	
 private slots:
 	/// выбран пункт меню "настройки"

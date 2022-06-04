@@ -1,62 +1,49 @@
 #include <QFileInfo>
 #include <QWebEngineHistory>
 
-#include "theorysystem.h"
-#include "ui_theorysystem.h"
-#include "theorysettingswindow.h"
-#include "../common/documents.h"
-#include "../common/constants.h"
-#include "../common/Error.h"
+#include "htmlviewer.h"
+#include "ui_htmlviewer.h"
+#include "settingswindow.h"
+#include "documents.h"
+#include "constants.h"
+#include "Error.h"
 
 /** **************************************************** PUBLIC **************************************************** **/
 
 /// конструктор класса
-TheorySystem::TheorySystem(QWidget *parent) :
+HtmlViewer::HtmlViewer(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::TheorySystem)
+    ui(new Ui::HtmlViewer)
 {
     ui->setupUi(this);
-	setWindowTitle("Теория");
-
-    displaySource();
 
     ui->prevPageButton->setEnabled(false);
     ui->nextPageButton->setEnabled(false);
 
-    connect(ui->webView, &QWebEngineView::urlChanged, this, &TheorySystem::urlChanged);
+    connect(ui->webView, &QWebEngineView::urlChanged, this, &HtmlViewer::urlChanged);
 }
 
 /// деструктор класса
-TheorySystem::~TheorySystem()
+HtmlViewer::~HtmlViewer()
 {
     delete ui;
 }
 
-/** **************************************************** PRIVATE *************************************************** **/
-
-/// вывод на экран главного файла с теорией
-void TheorySystem::displaySource()
+void HtmlViewer::Open(const QString & source)
 {
-    QJsonObject config;
-    try { config = readJson(configPath); }
-    catch (FileError & err) { err.Show(); close(); return; }
-
-    QJsonObject theoryConfig = config.find("theory")->toObject();
-    QFileInfo mainFileInfo = QFileInfo(theoryConfig.find("mainFileSource")->toString());
-
-    ui->webView->load(QUrl(mainFileInfo.absoluteFilePath()));
+    ui->webView->load(source);
 }
 
 /** ***************************************************** SLOTS **************************************************** **/
 
 /// переход к предыдущей странице истории
-void TheorySystem::on_prevPageButton_clicked()
+void HtmlViewer::on_prevPageButton_clicked()
 {
     ui->webView->back();
 }
 
 /// переход к следующей странице истории
-void TheorySystem::on_nextPageButton_clicked()
+void HtmlViewer::on_nextPageButton_clicked()
 {
     ui->webView->forward();
 }
@@ -65,7 +52,7 @@ void TheorySystem::on_nextPageButton_clicked()
  * @brief изменена URL
  * @details включение и отключение кнопок перемщения по истории
  */
-void TheorySystem::urlChanged()
+void HtmlViewer::urlChanged()
 {
     /*
      * если мы НЕ можем идти вперед, отключаем кнопку перехода вперед
@@ -83,10 +70,9 @@ void TheorySystem::urlChanged()
 }
 
 /// открыто окно настроек
-void TheorySystem::on_settingsMenuBar_triggered()
+void HtmlViewer::on_settingsMenuBar_triggered()
 {
-    TheorySettingsWindow * theorySettingsWindow = new TheorySettingsWindow();
-    theorySettingsWindow->show();
+    SettingsWindow::Instance().show();
 }
 
 

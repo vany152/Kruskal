@@ -5,5 +5,8 @@
     },
     "theory": {
         "mainFileSource": "D:/dev/Kruskal/resx/theory/context.html"
-    }
+    },
+    "testingRules" : "D:/dev/Kruskal/resx/reference/testingRules.html",
+    "questionsDatabaseEditRef" : "D:/dev/Kruskal/resx/reference/questionsDatabaseEditRef.html",
+    "titleText" : "D:/dev/Kruskal/resx/reference/titleText.html"
 }

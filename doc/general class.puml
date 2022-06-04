@@ -13,33 +13,6 @@ class MainWindow {
     - void on_testingButton_clicked()
 }
 
-' '''''''''''''''''''''''''''''''''''''''''''''''''' THEORY SYSTEM ''''''''''''''''''''''''''''''''''''''''''''''''''' '
-
-class TheorySystem {
-    - Ui::TheorySystem * ui
-    
-    + TheorySystem(QWidget *)
-    + ~TheorySystem()
-    
-    - void displaySource()
-    - void on_prevPageButton_clicked()
-    - void on_nextPageButton_clicked()
-    - void urlChanged()
-    - void on_settingsMenuBar_triggered()
-}
-MainWindow <-- TheorySystem
-
-class TheorySettingsWindow {
-    - Ui::TheorySettingsWindow * ui
-    
-    + TheorySettingsWindow(QWidget *)
-    + ~TheorySettingsWindow() override
-    
-    - void on_changeTheorySourceButton_clicked()
-    - void on_saveButton_clicked()
-}
-TheorySystem <-- TheorySettingsWindow
-
 ' ''''''''''''''''''''''''''''''''''''''''''''''''''' DEMO SYSTEM '''''''''''''''''''''''''''''''''''''''''''''''''''' '
 
 class DemoSystem {
@@ -165,6 +138,7 @@ class Vertex {
 }
 Vertex *-up- State
 Graph "1" *-- "..." Vertex
+Vertex "2" o-right-o "..." Edge
 
 class Edge {
 	- Vertex * from
@@ -193,16 +167,15 @@ class TestingSystem {
 	- Ui::TestingSystem * ui
 	- WelcomeToTesting * welcomeToTestingWidget
 	- TestingWidget * testingWidget
-	- SessionStatWidget * SessionStatWidget
-	- QDialog * testingRulesDialog
-    - QDialog * editQuestionRulesDialog
+	- SessionStatWidget * statWidget
 	- std::shared_ptr<SessionStat> currentSessionStat
+	- HtmlViewer * viewer
 
 	+ TestingSystem(QWidget *)
 	+ ~TestingSystem() override
 
-	- void formTestingRulesDialog()
-    - void formEditQuestionsRulesDialog()
+    - void showRef(const QString & refSectionName)
+
 	- void on_openSettingsMenu_triggered()
 	- void on_statMenu_triggered()
 	- void startTest(const QString & username)
@@ -247,7 +220,7 @@ class Question {
 	+ vector<QString> GetAnswers() const noexcept
 	+ Complexity GetComplexity() const noexcept
 }
-Question *-up- Complexity
+Question +-left- Complexity
 QuestionWidget *-- Question
 
 class SessionStatWidget {
@@ -259,7 +232,7 @@ class SessionStatWidget {
 	- void closeEvent(QCloseEvent *) override
 	- void closed()
 }
-TestingSystem *-left- SessionStatWidget
+TestingSystem *-up- SessionStatWidget
 
 class StatDatabaseViewWidget {
 	- Ui::StatDatabaseViewWidget * ui
@@ -281,7 +254,7 @@ TestingSystem <-- StatDatabaseViewWidget
 class StatError {
     + StatError(std::string)
 }
-Error <|-right- StatError
+Error <|-- StatError
 SessionStat +-- StatError
 
 class SessionStat {
@@ -301,7 +274,6 @@ class SessionStat {
 	- int calculateUserRate() const noexcept
 	- int calculateMaxRate() const noexcept
 }
-
 TestingSystem *-- SessionStat
 
 class WelcomeToTesting {
@@ -318,16 +290,6 @@ class WelcomeToTesting {
 	- void on_showTestingRulesButton_clicked()
 }
 TestingSystem *-left- WelcomeToTesting
-
-class TestingSettingsWindow {
-	- Ui::TestingSettingsWindow * ui
-
-	+ TestingSettingsWindow(QWidget *)
-	+ ~TestingSettingsWindow() override
-	- void on_changeQuestionsSourceButton_clicked()
-	- void on_saveButton_clicked()
-}
-TestingSystem <- TestingSettingsWindow
 
 class TestingWidget {
 	- Ui::TestingWidget * ui
@@ -395,5 +357,39 @@ class Error {
     + std::string What()
     + void Show()
 }
+
+class HtmlViewer {
+    - Ui::HtmlViewer * ui
+
+    + HtmlViewer(QWidget *)
+    + ~HtmlViewer()
+
+    + void OpenSource(const QString & source)
+    + void SetWindowTitle(const QString & title)
+
+    - void displaySource()
+    - void on_prevPageButton_clicked()
+    - void on_nextPageButton_clicked()
+    - void urlChanged()
+    - void on_settingsMenuBar_triggered()
+}
+MainWindow <-up- HtmlViewer
+TestingSystem "1" *-- "1" HtmlViewer
+
+class SettingsWindow {
+    + ~SettingsWindow();
+    + static SettingsWindow & Instance();
+
+    - Ui::SettingsWindow *ui;
+    - SettingsWindow(QWidget *parent = nullptr);
+    - void update();
+
+    - void on_changeTheorySourceButton_clicked();
+    - void on_saveTheorySettingsButton_clicked();
+    - void on_changeQuestionsSourceButton_clicked();
+    - void on_saveTestingsWettingsButton_clicked();
+}
+HtmlViewer <-- SettingsWindow
+TestingSystem <-- SettingsWindow
 
 @enduml

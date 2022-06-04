@@ -24,81 +24,39 @@ find_package(Qt6 COMPONENTS
 add_executable(Kruskal
         main.cpp
 
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        mainwindow.cpp mainwindow.h mainwindow.ui
 
-        common/documents.cpp
         common/documents.h
         common/constants.h
         common/Error.h
+        common/settingswindow.cpp common/settingswindow.h common/settingswindow.ui
 
-        testing/testingsystem.cpp
-        testing/testingsystem.h
-        testing/testingsystem.ui
+        testing/testingsystem.cpp testing/testingsystem.h testing/testingsystem.ui
+        testing/questions/question.cpp testing/questions/question.h
+        testing/welcometotesting.cpp testing/welcometotesting.h testing/welcometotesting.ui
+        testing/stat/sessionstatwidget.cpp testing/stat/sessionstatwidget.h testing/stat/sessionstatwidget.ui
+        testing/testingwidget.cpp testing/testingwidget.h testing/testingwidget.ui
+        testing/questions/questionwidget.cpp testing/questions/questionwidget.h testing/questions/questionwidget.ui
+        testing/stat/sessionstat.cpp testing/stat/sessionstat.h
+        testing/stat/statdatabaseviewwidget.cpp testing/stat/statdatabaseviewwidget.h testing/stat/statdatabaseviewwidget.ui
+        testing/stat/StatDatabaseViewOption.cpp testing/stat/StatDatabaseViewOption.h
 
-        testing/questions/question.cpp
-        testing/questions/question.h
+        demo/GraphDemo.cpp demo/GraphDemo.h
+        demo/demosystem.cpp demo/demosystem.h demo/demosystem.ui
+        demo/graph/Graph.cpp demo/graph/Graph.h
+        demo/graph/Edge.cpp demo/graph/Edge.h
+        demo/graph/Vertex.cpp demo/graph/Vertex.h
+        demo/kruskaldemo.cpp demo/kruskaldemo.h demo/kruskaldemo.ui
+        demo/cyclesdemo.cpp demo/cyclesdemo.h demo/cyclesdemo.ui
+        )
 
-        testing/testingsettingswindow.cpp
-        testing/testingsettingswindow.h
-        testing/testingsettingswindow.ui
-
-        testing/welcometotesting.cpp
-        testing/welcometotesting.h
-        testing/welcometotesting.ui
-
-        testing/stat/sessionstatwidget.cpp
-        testing/stat/sessionstatwidget.h
-        testing/stat/sessionstatwidget.ui
-
-        testing/testingwidget.cpp
-        testing/testingwidget.h
-        testing/testingwidget.ui
-
-        testing/questions/questionwidget.cpp
-        testing/questions/questionwidget.h
-        testing/questions/questionwidget.ui
-
-        testing/stat/sessionstat.cpp
-        testing/stat/sessionstat.h
-
-        testing/stat/statdatabaseviewwidget.cpp
-        testing/stat/statdatabaseviewwidget.h
-        testing/stat/statdatabaseviewwidget.ui
-
-#        theory/theorysystem.cpp
-#        theory/theorysystem.h
-#        theory/theorysystem.ui
-#
-#        theory/theorysettingswindow.cpp
-#        theory/theorysettingswindow.h
-#        theory/theorysettingswindow.ui
-
-        demo/GraphDemo.cpp
-        demo/GraphDemo.h
-
-        demo/demosystem.cpp
-        demo/demosystem.h
-        demo/demosystem.ui
-
-        demo/graph/Graph.cpp
-        demo/graph/Graph.h
-
-        demo/graph/Edge.cpp
-        demo/graph/Edge.h
-
-        demo/graph/Vertex.cpp
-        demo/graph/Vertex.h
-
-        demo/kruskaldemo.cpp
-        demo/kruskaldemo.h
-        demo/kruskaldemo.ui
-
-        demo/cyclesdemo.cpp
-        demo/cyclesdemo.h
-        demo/cyclesdemo.ui
-        testing/stat/StatDatabaseViewOption.cpp testing/stat/StatDatabaseViewOption.h)
+set(NoWebEngine true) # если переменная установлена, не компилируем исходники с компонентом QWebEngine
+if (${NoWebEngine})
+    add_compile_definitions("NOWEBENGINE")
+    message("No Web Engine")
+else()
+    target_sources(Kruskal PUBLIC common/htmlviewer.cpp common/htmlviewer.h common/htmlviewer.ui)
+endif()
 
 target_link_libraries(Kruskal
         Qt::Core

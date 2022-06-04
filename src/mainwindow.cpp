@@ -1,8 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include "theory/theorysystem.h"
 #include "testing/testingsystem.h"
 #include "demo/demosystem.h"
+
+#ifndef NOWEBENGINE
+  #include "common/htmlviewer.h"
+#else
+  #include <QMessageBox>
+#endif
 
 /** **************************************************** PUBLIC **************************************************** **/
 
@@ -11,6 +16,7 @@ MainWindow::MainWindow(QWidget * parent) :
 {
 	ui->setupUi(this);
 	setWindowTitle("Алгоритм Краскала");
+ 
 	displayHelloText();
 }
 
@@ -24,33 +30,21 @@ MainWindow::~MainWindow()
 /// вывод приветствия в текстовое поле
 void MainWindow::displayHelloText()
 {
-	ui->welcomeTextBrowser->setHtml(
-			"Астраханский государственный университет <br/>\n"
-			"Институт информационных технологий и коммуникации\n"
-			"<br/>\n"
-			"\n"
-			"<p align=\"right\"> \n"
-			"Кафедра <br/>\n"
-			"Автоматические системы <br/>\n"
-			"обработки информации и управления\n"
-			"</p>\n"
-			"<br/>\n"
-			"\n"
-			"<h4 align=\"center\">\n"
-			"Курсовой проект по дисциплине <br/> \n"
-			"\"Алгоритмы и структуры данных\" <br/> \n"
-			"<font color=\"green\"> Учебно-демонстрационная программа <br/> \n"
-			"\"Алгоритм Краскала поиска минимального остовного дерева\" </font>\n"
-			"</h4>\n"
-			"<br/>\n"
-			"\n"
-			"<p align=\"right\"> \n"
-			"Выполнил студент группы ДИПРб-21 <br/> \n"
-			"Ермолаев Иван Дмитриевич\n"
-			"</p>\n"
-			"\n"
-			"<p align='center'> г. Астрахань, 2021 </p>\n"
-	);
+    /*
+    * читаем конфиги
+    */
+    QJsonObject config;
+    try { config = readJson(configPath); }
+    catch (FileError & err) { err.Show(); close(); return; }
+    
+    QString titleText;  // содержимое файла с текстом титульного листа
+    try { titleText = readFile(config.find("titleText")->toString()); }
+    catch (FileError & err) { err.Show(); close(); return; }
+    
+    /*
+     * выводим прочитанный текст на виджет
+     */
+    ui->welcomeTextBrowser->setHtml(titleText);
 }
 
 /** ***************************************************** SLOTS **************************************************** **/
@@ -58,8 +52,29 @@ void MainWindow::displayHelloText()
 /// запуск окна с теорией
 void MainWindow::on_theoryButton_clicked()
 {
-//    TheorySystem * theorySystemWindow = new TheorySystem(this);
-//    theorySystemWindow->show();
+#ifndef NOWEBENGINE
+    HtmlViewer * theoryViewer = new HtmlViewer(this);
+    theoryViewer->SetWindowTitle("Теория");
+    theoryViewer->show();
+
+    /*
+     * в конфигах ищем путь файла с теорией
+     */
+    QJsonObject config;
+    try { config = readJson(configPath); }
+    catch (FileError & err) { err.Show(); close(); return; }
+    QJsonObject theoryConfig = config.find("theory")->toObject();
+    QFileInfo mainFileInfo = QFileInfo(theoryConfig.find("mainFileSource")->toString());
+
+    /*
+     * загружаем файл с теорией
+     */
+    theoryViewer->Open(mainFileInfo.absoluteFilePath());
+#else
+    QMessageBox * messageBox = new QMessageBox(this);
+    messageBox->setText("Компонент не скомпилирован");
+    messageBox->exec();
+#endif
 }
 
 /// запуск окна с демонстрацией

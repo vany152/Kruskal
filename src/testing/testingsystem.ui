@@ -27,7 +27,7 @@
    </property>
    <widget class="QMenu" name="settingsMenuBar">
     <property name="title">
-     <string>Настрокйи</string>
+     <string>Настройки</string>
     </property>
     <addaction name="openSettingsMenu"/>
    </widget>

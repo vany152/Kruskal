@@ -135,6 +135,7 @@ class Vertex {
 }
 Vertex *-up- State
 Graph "1" *-- "..." Vertex
+Vertex "2" o-right-o "..." Edge
 
 class Edge {
 	- Vertex * from

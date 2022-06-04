@@ -17,16 +17,15 @@ class TestingSystem {
 	- Ui::TestingSystem * ui
 	- WelcomeToTesting * welcomeToTestingWidget
 	- TestingWidget * testingWidget
-	- SessionStatWidget * SessionStatWidget
-	- QDialog * testingRulesDialog
-    - QDialog * editQuestionRulesDialog
+	- SessionStatWidget * statWidget
 	- std::shared_ptr<SessionStat> currentSessionStat
+    - HtmlViewer * viewer
 
 	+ TestingSystem(QWidget *)
 	+ ~TestingSystem() override
 
-	- void formTestingRulesDialog()
-    - void formEditQuestionsRulesDialog()
+    - void showRef(const QString & refSectionName)
+
 	- void on_openSettingsMenu_triggered()
 	- void on_statMenu_triggered()
 	- void startTest(const QString & username)
@@ -71,7 +70,7 @@ class Question {
 	+ vector<QString> GetAnswers() const noexcept
 	+ Complexity GetComplexity() const noexcept
 }
-Question *-up- Complexity
+Question +-up- Complexity
 QuestionWidget *-- Question
 
 class SessionStatWidget {
@@ -125,7 +124,6 @@ class SessionStat {
 	- int calculateUserRate() const noexcept
 	- int calculateMaxRate() const noexcept
 }
-
 TestingSystem *-- SessionStat
 
 class WelcomeToTesting {
@@ -142,16 +140,6 @@ class WelcomeToTesting {
 	- void on_showTestingRulesButton_clicked()
 }
 TestingSystem *-left- WelcomeToTesting
-
-class TestingSettingsWindow {
-	- Ui::TestingSettingsWindow * ui
-
-	+ TestingSettingsWindow(QWidget *)
-	+ ~TestingSettingsWindow() override
-	- void on_changeQuestionsSourceButton_clicked()
-	- void on_saveButton_clicked()
-}
-TestingSystem <- TestingSettingsWindow
 
 class TestingWidget {
 	- Ui::TestingWidget * ui

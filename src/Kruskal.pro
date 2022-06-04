@@ -1,4 +1,4 @@
-QT       += core gui svg webenginewidgets sql
+QT       += core gui svg svgwidgets webenginewidgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,7 +9,9 @@ CONFIG += c++20
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    common/documents.cpp \
+    common/htmlviewer.cpp \
+    common/settingswindow.cpp \
+    demo/GraphDemo.cpp \
     demo/cyclesdemo.cpp \
     demo/demosystem.cpp \
     demo/graph/Edge.cpp \
@@ -18,22 +20,23 @@ SOURCES += \
     demo/kruskaldemo.cpp \
     main.cpp \
     mainwindow.cpp \
-    testing/questions/Question.cpp \
+    testing/questions/question.cpp \
     testing/questions/questionwidget.cpp \
-    testing/stat/Stat.cpp \
-    testing/stat/statviewwidget.cpp \
-    testing/stat/statwidget.cpp \
-    testing/testing.cpp \
-    testing/testingsettingswindow.cpp \
+    testing/stat/StatDatabaseViewOption.cpp \
+    testing/stat/sessionstat.cpp \
+    testing/stat/sessionstatwidget.cpp \
+    testing/stat/statdatabaseviewwidget.cpp \
     testing/testingsystem.cpp \
+    testing/testingwidget.cpp \
     testing/welcometotesting.cpp \
-    theory/theorysettingswindow.cpp \
-    theory/theorysystem.cpp
 
 HEADERS += \
-    common/FileError.h \
+    common/Error.h \
     common/constants.h \
     common/documents.h \
+    common/htmlviewer.h \
+    common/settingswindow.h \
+    demo/GraphDemo.h \
     demo/cyclesdemo.h \
     demo/demosystem.h \
     demo/graph/Edge.h \
@@ -41,32 +44,29 @@ HEADERS += \
     demo/graph/Vertex.h \
     demo/kruskaldemo.h \
     mainwindow.h \
-    testing/questions/Question.h \
+    testing/questions/question.h \
     testing/questions/questionwidget.h \
-    testing/stat/Stat.h \
-    testing/stat/statviewwidget.h \
-    testing/stat/statwidget.h \
-    testing/testing.h \
-    testing/testingsettingswindow.h \
+    testing/stat/StatDatabaseViewOption.h \
+    testing/stat/sessionstat.h \
+    testing/stat/sessionstatwidget.h \
+    testing/stat/statdatabaseviewwidget.h \
     testing/testingsystem.h \
+    testing/testingwidget.h \
     testing/welcometotesting.h \
-    theory/theorysettingswindow.h \
-    theory/theorysystem.h
 
 FORMS += \
+    common/htmlviewer.ui \
+    common/settingswindow.ui \
     demo/cyclesdemo.ui \
     demo/demosystem.ui \
     demo/kruskaldemo.ui \
     mainwindow.ui \
     testing/questions/questionwidget.ui \
-    testing/stat/statviewwidget.ui \
-    testing/stat/statwidget.ui \
-    testing/testing.ui \
-    testing/testingsettingswindow.ui \
+    testing/stat/sessionstatwidget.ui \
+    testing/stat/statdatabaseviewwidget.ui \
     testing/testingsystem.ui \
+    testing/testingwidget.ui \
     testing/welcometotesting.ui \
-    theory/theorysettingswindow.ui \
-    theory/theorysystem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
