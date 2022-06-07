@@ -136,7 +136,7 @@ class Vertex {
 	+ void SetColor(int)
 	+ char GetLabel()
 }
-Vertex *-up- State
+Vertex +-up- State
 Graph "1" *-- "..." Vertex
 Vertex "2" o-right-o "..." Edge
 
@@ -255,7 +255,7 @@ class StatError {
     + StatError(std::string)
 }
 Error <|-- StatError
-SessionStat +-- StatError
+SessionStat +-up- StatError
 
 class SessionStat {
 	- QString username
@@ -357,6 +357,13 @@ class Error {
     + std::string What()
     + void Show()
 }
+
+class FileError {
+    + FileError(const std::string & what)
+}
+Error <|-- FileError
+GraphDemo -- FileError
+
 
 class HtmlViewer {
     - Ui::HtmlViewer * ui
