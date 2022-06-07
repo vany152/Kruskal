@@ -5,8 +5,6 @@
 
 #ifndef NOWEBENGINE
   #include "common/htmlviewer.h"
-#else
-  #include <QMessageBox>
 #endif
 
 /** **************************************************** PUBLIC **************************************************** **/
@@ -71,9 +69,11 @@ void MainWindow::on_theoryButton_clicked()
      */
     theoryViewer->Open(mainFileInfo.absoluteFilePath());
 #else
-    QMessageBox * messageBox = new QMessageBox(this);
-    messageBox->setText("Компонент не скомпилирован");
-    messageBox->exec();
+    /*
+     * не выкидываю исключение из функции, потому что поймать его можно только в функции main,
+     * после чего программа завершит выполнение
+     */
+    Error("компонент HtmlViewer не скомпилирован").Show();
 #endif
 }
 
@@ -88,7 +88,9 @@ void MainWindow::on_demoButton_clicked()
 void MainWindow::on_testingButton_clicked()
 {
 	TestingSystem * testingSystemWindow = new TestingSystem(this);
-	testingSystemWindow->show();
+	try { testingSystemWindow->show(); }
+    catch (Error & err) { err.Show(); }
+    catch (...) { throw; }
 }
 
 

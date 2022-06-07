@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "Error.h"
+
 namespace Ui { class HtmlViewer; }
 
 class HtmlViewer : public QMainWindow

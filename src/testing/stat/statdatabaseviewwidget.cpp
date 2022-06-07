@@ -10,6 +10,7 @@ StatDatabaseViewWidget::StatDatabaseViewWidget(const QString & dbname, QWidget *
 		QWidget(parent), ui(new Ui::StatDatabaseViewWidget)
 {
 	ui->setupUi(this);
+    setWindowTitle("Статистика");
     
     /*
      * добавляем опции фильтра записей базы данных

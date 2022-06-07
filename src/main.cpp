@@ -2,6 +2,7 @@
 #include <QPushButton>
 
 #include "mainwindow.h"
+#include "common/Error.h"
 
 int main(int argc, char * argv[])
 {
@@ -16,6 +17,10 @@ int main(int argc, char * argv[])
 	
 	MainWindow mw;
 	mw.show();
+    
+    int res;
+    try { res = QApplication::exec(); }
+    catch(std::exception & err) { Error(err.what()).Show(); }
 	
-	return QApplication::exec();
+	return res;
 }

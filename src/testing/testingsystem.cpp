@@ -1,6 +1,3 @@
-#include <QGridLayout>
-#include <QTextBrowser>
-
 #include "testingsystem.h"
 #include "ui_testingsystem.h"
 
@@ -52,6 +49,8 @@ void TestingSystem::showRef(const QString & refSectionName)
     
     viewer->Open(config.find(refSectionName)->toString());
     viewer->show();
+#else
+    throw Error("компонент HtmlViewer не скомпилирован");
 #endif
 }
 
