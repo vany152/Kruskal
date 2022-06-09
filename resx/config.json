@@ -1,12 +1,12 @@
 {
     "testing": {
         "amountOfQuestions": 8,
-        "questionsSource": "D:/dev/Kruskal/resx/questions.json"
+        "questionsSource": "/resx/questions.json"
     },
     "theory": {
-        "mainFileSource": "D:/dev/Kruskal/resx/theory/context.html"
+        "mainFileSource": "/resx/theory/context.html"
     },
-    "testingRules" : "D:/dev/Kruskal/resx/reference/testingRules.html",
-    "questionsDatabaseEditRef" : "D:/dev/Kruskal/resx/reference/questionsDatabaseEditRef.html",
-    "titleText" : "D:/dev/Kruskal/resx/titleText.html"
+    "testingRules" : "/resx/reference/testingRules.html",
+    "questionsDatabaseEditRef" : "/resx/reference/questionsDatabaseEditRef.html",
+    "titleText" : "resx/titleText.html"
 }

@@ -46,8 +46,9 @@ void TestingSystem::showRef(const QString & refSectionName)
     QJsonObject config;
     try { config = readJson(configPath); }
     catch (FileError & err) { err.Show(); close(); return; }
+    QFileInfo fileInfo = QFileInfo(config.find(refSectionName)->toString());
     
-    viewer->Open(config.find(refSectionName)->toString());
+    viewer->Open(fileInfo.absoluteFilePath());
     viewer->show();
 #else
     throw Error("компонент HtmlViewer не скомпилирован");
