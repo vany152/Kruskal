@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp_1',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['mainwindow_2',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
-  ['mainwindow_2ecpp_3',['mainwindow.cpp',['../mainwindow_8cpp.html',1,'']]],
-  ['mainwindow_2eh_4',['mainwindow.h',['../mainwindow_8h.html',1,'']]],
-  ['medium_5',['medium',['../class_question.html#aa62100e3aa599e0252bb24a1089781c2aa26c7783fb975169744721a3f681dae2',1,'Question']]]
+  ['kruskal_0',['Kruskal',['../class_graph.html#a4a9be3ee7b1d671c0396c67fa68e6079',1,'Graph']]],
+  ['kruskaldemo_1',['KruskalDemo',['../class_kruskal_demo.html',1,'KruskalDemo'],['../class_graph.html#a614a0aab9606ec19c7b8d3027ca19385',1,'Graph::KruskalDemo()'],['../class_kruskal_demo.html#abd1bc6aaa72fd2c985c4ec98a15c160b',1,'KruskalDemo::KruskalDemo()']]],
+  ['kruskaldemo_2ecpp_2',['kruskaldemo.cpp',['../kruskaldemo_8cpp.html',1,'']]],
+  ['kruskaldemo_2eh_3',['kruskaldemo.h',['../kruskaldemo_8h.html',1,'']]]
 ];

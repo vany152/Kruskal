@@ -1,8 +1,8 @@
 var class_vertex =
 [
     [ "State", "class_vertex.html#aa6cfba80e4061679f296b55674ddbff5", [
-      [ "Open", "class_vertex.html#aa6cfba80e4061679f296b55674ddbff5a6b26208aacd7afbd64d59ad6d4d8ad2d", null ],
-      [ "Locked", "class_vertex.html#aa6cfba80e4061679f296b55674ddbff5a0087d1af14b6bc6ccad8e56b03b59f91", null ]
+      [ "Unvisited", "class_vertex.html#aa6cfba80e4061679f296b55674ddbff5a21b425bf1866985fa459b6198d5bff6d", null ],
+      [ "Visited", "class_vertex.html#aa6cfba80e4061679f296b55674ddbff5ad96fb32d1d3c1ae81f1c071e664e10c8", null ]
     ] ],
     [ "Vertex", "class_vertex.html#a6cd9327de8110cc27c45fd5841ed4f9d", null ],
     [ "Coordinates", "class_vertex.html#ae2896f8012b2229ef1d7498bef057179", null ],

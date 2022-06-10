@@ -1,0 +1,5 @@
+<map id="GraphDemo::loadDemo" name="GraphDemo::loadDemo">
+<area shape="rect" id="node1" title="загрузка снапшотов в память программы" alt="" coords="243,35,400,61"/>
+<area shape="rect" id="node2" href="$class_kruskal_demo.html#abd1bc6aaa72fd2c985c4ec98a15c160b" title="конструктор класса" alt="" coords="7,5,193,32"/>
+<area shape="rect" id="node3" href="$class_cycles_demo.html#a9105d7b489fbf8d17521acd6e4c57d02" title="нажатие на кнопку начала демонстрации" alt="" coords="5,57,195,98"/>
+</map>

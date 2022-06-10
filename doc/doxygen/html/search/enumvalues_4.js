@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['simple_0',['simple',['../class_question.html#aa62100e3aa599e0252bb24a1089781c2a33610aab0d04bcaad3c7cf04cf769e91',1,'Question']]]
+  ['visited_0',['Visited',['../class_vertex.html#aa6cfba80e4061679f296b55674ddbff5ad96fb32d1d3c1ae81f1c071e664e10c8',1,'Vertex']]]
 ];

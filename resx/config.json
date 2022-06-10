@@ -1,0 +1,12 @@
+{
+    "testing": {
+        "amountOfQuestions": 8,
+        "questionsSource": "resx/questions.json"
+    },
+    "theory": {
+        "mainFileSource": "resx/theory/context.html"
+    },
+    "testingRules" : "resx/reference/testingRules.html",
+    "questionsDatabaseEditRef" : "resx/reference/questionsDatabaseEditRef.html",
+    "titleText" : "resx/titleText.html"
+}

@@ -1,8 +1,8 @@
 var class_error =
 [
-    [ "Error", "class_error.html#aca339d00ad8481fb4c184f0ece42698b", null ],
+    [ "Error", "class_error.html#af7272f57306a656ad4f8dbb6d7dd88d7", null ],
     [ "Error", "class_error.html#a5d33953828015549e87531a3cd85139b", null ],
     [ "Show", "class_error.html#a570756ae8ea1f2ba66ae9620db5bd59a", null ],
-    [ "What", "class_error.html#a2ec6a616af1876f0e4eb03c08c301b69", null ],
-    [ "what", "class_error.html#a7c99971f583d475280a5d3efa2ced854", null ]
+    [ "what", "class_error.html#a94f60633baf3f7cbd175c05a2d5bec86", null ],
+    [ "_what", "class_error.html#a30a2b23c0118c863a2dfa65b6956e5d9", null ]
 ];

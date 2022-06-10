@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kruskaldemo_0',['KruskalDemo',['../class_kruskal_demo.html',1,'']]]
+  ['htmlviewer_0',['HtmlViewer',['../class_html_viewer.html',1,'']]]
 ];

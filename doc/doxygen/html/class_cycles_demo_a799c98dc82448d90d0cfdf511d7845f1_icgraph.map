@@ -1,0 +1,5 @@
+<map id="CyclesDemo::switchDemo" name="CyclesDemo::switchDemo">
+<area shape="rect" id="node1" title="нажатие на кнопку перехода к демонстрации алгоритма Краскала" alt="" coords="249,35,424,61"/>
+<area shape="rect" id="node2" href="$class_demo_system.html#a5128bf71952e8b9fc287656d0c6a26f4" title="конструктор класса" alt="" coords="9,5,197,32"/>
+<area shape="rect" id="node3" href="$class_cycles_demo.html#a26129270ccfd28cec00721ec1dee04ee" title="нажатие на кнопку смены демонстрации" alt="" coords="5,57,201,98"/>
+</map>

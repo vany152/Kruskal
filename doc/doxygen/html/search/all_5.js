@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['generate_0',['Generate',['../class_graph.html#a7fae63242d931db252132437a3206d29',1,'Graph']]],
-  ['getanswers_1',['GetAnswers',['../class_question.html#adfa53be49c7ab0a7f85845dde9032ce9',1,'Question']]],
-  ['getcomplexity_2',['GetComplexity',['../class_question.html#a58ecee015b7a5bbd1cf1e227fe2c1b0a',1,'Question']]],
-  ['getlabel_3',['GetLabel',['../class_vertex.html#a7de39860e4167a015eb34524ef72cc26',1,'Vertex']]],
-  ['getname_4',['GetName',['../class_edge.html#ae1aa29527179a02e8a6a63ccfc5b4e29',1,'Edge']]],
-  ['getquestion_5',['GetQuestion',['../class_question.html#a96e582741a4d07853651bba638101f16',1,'Question::GetQuestion()'],['../class_question_widget.html#a3273103174d9f9cb48bd87a5467d2bd2',1,'QuestionWidget::GetQuestion()']]],
-  ['graph_6',['Graph',['../class_graph.html',1,'Graph'],['../class_edge.html#afab89afd724f1b07b1aaad6bdc61c47a',1,'Edge::Graph()'],['../class_vertex.html#afab89afd724f1b07b1aaad6bdc61c47a',1,'Vertex::Graph()'],['../class_graph.html#a94aa2c190531b95749fd414115bffe6d',1,'Graph::Graph(size_t numberOfVertexes, size_t numberOfEdges, int minEdgeCost, int maxEdgeCost) noexcept'],['../class_graph.html#a0924b10555e721fe4ddfa1b94c909f20',1,'Graph::Graph(const Graph &amp;graph) noexcept']]],
-  ['graph_2ecpp_7',['Graph.cpp',['../_graph_8cpp.html',1,'']]],
-  ['graph_2eh_8',['Graph.h',['../_graph_8h.html',1,'']]]
+  ['fileerror_0',['FileError',['../class_file_error.html',1,'FileError'],['../class_file_error.html#af2fd4aa0706b33c82103f52c2f0452d2',1,'FileError::FileError()=default'],['../class_file_error.html#a5dd770a3712989a2883440f24147b078',1,'FileError::FileError(const std::string &amp;what)']]],
+  ['findcostpos_1',['FindCostPos',['../class_edge.html#aeaa699a5fd4f867b6554895c461cc70d',1,'Edge']]],
+  ['findedge_2',['FindEdge',['../class_graph.html#a0c4c73ae39f497b5486b679fe705387d',1,'Graph::FindEdge(char labelFrom, char labelTo) const noexcept'],['../class_graph.html#a6edae128f42261bfae2d8ac323c4c213',1,'Graph::FindEdge(const Edge &amp;edge) const noexcept']]],
+  ['findlabelpos_3',['FindLabelPos',['../class_vertex.html#ab26736f63f30d1e239abd437c93fc735',1,'Vertex']]],
+  ['findvertex_4',['FindVertex',['../class_graph.html#afb22afd7f9252250237a65fe4c5b7cec',1,'Graph']]]
 ];

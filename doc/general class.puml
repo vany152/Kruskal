@@ -1,0 +1,402 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class MainWindow {
+    - Ui::MainWindow * ui
+
+    + MainWindow(QWidget *)
+    + ~MainWindow() override
+    
+    - void displayHelloText()
+    - void on_theoryButton_clicked()
+    - void on_demoButton_clicked()
+    - void on_testingButton_clicked()
+}
+
+' ''''''''''''''''''''''''''''''''''''''''''''''''''' DEMO SYSTEM '''''''''''''''''''''''''''''''''''''''''''''''''''' '
+
+class DemoSystem {
+	- Ui::DemoSystem * ui
+	- KruskalDemo * kruskalDemo
+	- CyclesDemo * cyclesDemo
+
+	+ DemoSystem(QWidget *)
+	+ ~DemoSystem() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void ShowKruskal()
+	- void ShowCycles()
+}
+MainWindow -- DemoSystem
+
+class GraphDemo {
+    + GraphDemo(QWidget * parent, const QString & tempDirName, const QRect & sceneRect, const QRect & internalSceneRect)
+    + virtual ~GraphDemo() = 0
+
+    # QGraphicsScene * scene
+    # QGraphicsScene * internalScene
+    # std::unique_ptr<Graph> graph
+
+    # std::list<QGraphicsSvgItem *> demoSteps
+    # std::list<QGraphicsSvgItem*>::iterator currentStep
+
+    # QDir tmp
+    # int snapshotNumber = 1000
+
+    # static std::unique_ptr<Graph> generateGraph() noexcept
+    # void loadDemo()
+}
+
+class CyclesDemo {
+	- Ui::CyclesDemo * ui
+	- QGraphicsTextItem * stackView
+
+	+ CyclesDemo(QWidget * parent)
+    + ~CyclesDemo() override
+
+	- void on_prevStepButton_clicked()
+	- void on_nextStepButton_clicked()
+	- void on_toBeginOfDemoButton_clicked()
+	- void on_toEndOfDemoButton_clicked()
+	- void on_startButton_clicked()
+	- void on_switchDemoButton_clicked()
+	- void takeSnapshot(QGraphicsScene *)
+	- void displayStack(const std::stack<std::pair<Vertex *, Vertex *>> & st) noexcept
+
+	- void switchDemo()
+}
+GraphDemo <|-- CyclesDemo
+DemoSystem <-- CyclesDemo
+
+class KruskalDemo {
+	- Ui::KruskalDemo * ui
+	- std::shared_ptr<Graph> mst
+
+    + KruskalDemo(QWidget * parent)
+    + ~KruskalDemo() override
+
+	- void on_prevStepButton_clicked()
+	- void on_nextStepButton_clicked()
+	- void on_toBeginOfDemoButton_clicked()
+	- void on_toEndOfDemoButton_clicked()
+	- void on_switchDemoButton_clicked()
+	- void takeSnapshot(QGraphicsScene * scene)
+
+	- void switchDemo()
+}
+GraphDemo <|-- KruskalDemo
+DemoSystem <-- KruskalDemo
+
+class Graph {
+    - std::list<Vertex> vertices
+    - std::list<Edge> edges
+    - QGraphicsScene * scene
+    - QPoint graphCenter
+    - uint64_t graphDiameter
+
+	+ Graph(size_t numberOfVertices)
+	+ Graph(const Graph & graph)
+	+ void RandomlyLinkVertices(size_t numberOfEdges, int minEdgeCost, int maxEdgeCost)
+	+ void Kruskal(Graph & mst)
+	+ static bool DoesPathExist(std::list<Edge *> & path, Vertex *, Vertex *, Vertex *)
+	+ void CheckEdgeInCycleDemo(Edge * edge)
+	+ void PrepareToPaint(QPoint, int64_t, QGraphicsScene *)
+	+ void Paint(uint32_t, uint32_t)
+	+ void HideEdges()
+	+ Edge * FindEdge(char, char) const noexcept
+	+ Edge * FindEdge(Edge) const noexcept
+	+ Vertex * FindVertex(char label) noexcept
+
+    - void takeSnapshot(QGraphicsScene * scene) const
+    - void stackChanged(std::stack<std::pair<Vertex *, Vertex *>> &) const
+}
+CyclesDemo o-- Graph
+KruskalDemo o-- Graph
+
+enum State {
+    Unvisited
+    Visited
+}
+class Vertex {
+	- char label
+	- std::vector<Edge *> edges
+	- QGraphicsScene * scene
+	- std::shared_ptr<QPoint> labelPos
+	- std::shared_ptr<QRect> ellipse
+	- QGraphicsEllipseItem * graphicsEllipse
+	- QGraphicsTextItem * graphicsLabel
+
+	+ State state
+	+ Vertex(char)
+	+ void PrepareToPaint(QPoint, QPoint, QSize, QGraphicsScene *)
+	+ QPoint FindLabelPos(QPoint)
+	+ void Paint(QPen, QBrush)
+	+ QPoint Coordinates()
+	+ void Show()
+	+ void SetColor(int)
+	+ char GetLabel()
+}
+Vertex +-up- State
+Graph "1" *-- "..." Vertex
+Vertex "2" o-right-o "..." Edge
+
+class Edge {
+	- Vertex * from
+	- Vertex * to
+	- int cost
+	- QGraphicsScene * scene
+	- std::shared_ptr<QPoint> costPos
+	- std::shared_ptr<QLine> edge
+	- QGraphicsLineItem * graphicsEdge
+	- QGraphicsTextItem * graphicsCost
+
+	+ Edge(Vertex *, Vertex *, int) noexcept
+	+ void PrepareToPaint(QPoint, QGraphicsScene *)
+	+ QPoint FindCostPos(QPoint) const noexcept
+	+ void Paint(QPen)
+	+ void SetPen(QPen)
+	+ void Hide() noexcept
+	+ void Show() noexcept
+	+ QString GetName() const
+}
+Graph "1" *-- "..." Edge
+
+' '''''''''''''''''''''''''''''''''''''''''''''''''' TESTING SYSTEM '''''''''''''''''''''''''''''''''''''''''''''''''' '
+
+class TestingSystem {
+	- Ui::TestingSystem * ui
+	- WelcomeToTesting * welcomeToTestingWidget
+	- TestingWidget * testingWidget
+	- SessionStatWidget * statWidget
+	- std::shared_ptr<SessionStat> currentSessionStat
+	- HtmlViewer * viewer
+
+	+ TestingSystem(QWidget *)
+	+ ~TestingSystem() override
+
+    - void showRef(const QString & refSectionName)
+
+	- void on_openSettingsMenu_triggered()
+	- void on_statMenu_triggered()
+	- void startTest(const QString & username)
+	- void saveStat()
+	- void showStat()
+	- void showTestingRules()
+    - void showEditQuestionsRules()
+}
+MainWindow <-- TestingSystem
+
+class QuestionWidget {
+	- Ui::QuestionWidget * ui
+	- QTextBrowser * questionTextBrowser
+	- shared_ptr<Question> question
+	- vector<QCheckBox *> answersCheckBoxes
+	- void formAnswers()
+
+	+ QuestionWidget(shared_ptr<Question>, QWidget *, QTextBrowser *)
+	+ ~QuestionWidget() override
+	+ void Display()
+	+ int RateAnswer()
+	+ shared_ptr<Question> GetQuestion()
+}
+TestingWidget "1" *-- "..." QuestionWidget
+
+enum Complexity {
+    simple
+    medium
+    hard
+}
+class Question {
+	- QString question
+	- Complexity complexity
+	- vector<QString> answers
+	- set<int> correctAnswers
+
+	+ Question()
+	+ Question(QString, std::vector<QString>, std::set<int>, Complexity)
+	+ Question(QJsonObject)
+	+ int RateAnswer(std::set<int>) const noexcept
+	+ QString GetQuestion() const noexcept
+	+ vector<QString> GetAnswers() const noexcept
+	+ Complexity GetComplexity() const noexcept
+}
+Question +-left- Complexity
+QuestionWidget *-- Question
+
+class SessionStatWidget {
+    - Ui::SessionStatWidget * ui
+
+	+ SessionStatWidget(shared_ptr<SessionStat>, QWidget *)
+	+ ~SessionStatWidget() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void closed()
+}
+TestingSystem *-up- SessionStatWidget
+
+class StatDatabaseViewWidget {
+	- Ui::StatDatabaseViewWidget * ui
+	- QSqlDatabase * db
+	- QSqlTableModel * model
+	- std::list<std::unique_ptr<StatDatabaseViewOption>> filterOptions
+
+	+ StatDatabaseViewWidget(QString, QWidget *)
+	+ ~StatDatabaseViewWidget() override
+
+	- void addFilterOptions()
+
+	- void on_showButton_clicked()
+	- void on_clearFilterButton_clicked()
+	- void changeParametersFields(QString)
+}
+TestingSystem <-- StatDatabaseViewWidget
+
+class StatError {
+    + StatError(std::string)
+}
+Error <|-- StatError
+SessionStat +-up- StatError
+
+class SessionStat {
+	- QString username
+	- QDateTime startTime
+	- QDateTime finishTime
+	- std::vector<std::pair<std::shared_ptr<Question>, int>> questionsRate
+
+	+ SessionStat(QString)
+	+ void AddQuestionRate(std::shared_ptr<Question>, int) noexcept
+	+ void Save(QString)
+	+ QString ToHtmlString() const
+	+ void SetStartTime(QDateTime)
+	+ void SetFinishTime(QDateTime)
+
+	- static QTime duration(QDateTime, QDateTime) noexcept
+	- int calculateUserRate() const noexcept
+	- int calculateMaxRate() const noexcept
+}
+TestingSystem *-- SessionStat
+
+class WelcomeToTesting {
+	- Ui::WelcomeToTesting * ui
+
+	+ WelcomeToTesting(QWidget *)
+	+ ~WelcomeToTesting() override
+
+	- void closeEvent(QCloseEvent *) override
+	- void closed(QString username)
+	- void testingRulesButtonClicked()
+	- void on_startTestingButton_clicked()
+	- void on_usernameLineEdit_textChanged()
+	- void on_showTestingRulesButton_clicked()
+}
+TestingSystem *-left- WelcomeToTesting
+
+class TestingWidget {
+	- Ui::TestingWidget * ui
+	- int currentQuestion
+	- int amountOfQuestions
+	- std::vector<std::shared_ptr<QuestionWidget>> questions
+	- std::shared_ptr<SessionStat> currentSessionStat
+
+    + TestingWidget(std::shared_ptr<SessionStat>, QWidget *)
+    + ~TestingWidget() override
+
+	- void readQuestions()
+	- void displayCurrentQuestion()
+	- void closeEvent(QCloseEvent *) override
+
+	- void closed()
+
+	- void on_answerButton_clicked()
+}
+TestingSystem *-- TestingWidget
+
+class StatDatabaseViewOption {
+    - const std::vector<QWidget *> fields
+    - const QString optionName
+
+    + StatDatabaseViewOption(const QString & optionName, std::vector<QWidget *> & fields)
+    + virtual ~StatDatabaseViewOption() = 0
+
+    + void SetFieldsVisibility(bool visible)
+    + QString GetName() const noexcept
+}
+StatDatabaseViewWidget "1" *-- "..." StatDatabaseViewOption
+
+class UsernameOption {
+    + UsernameOption(std::vector<QWidget *> & fields)
+    + ~UsernameOption() final
+}
+StatDatabaseViewOption <|-- UsernameOption
+
+class TestingPeriodOption {
+    + TestingPeriodOption(std::vector<QWidget *> & fields)
+    + ~TestingPeriodOption() final
+}
+StatDatabaseViewOption <|-- TestingPeriodOption
+
+class TestingDurationOption {
+    + TestingDurationOption(std::vector<QWidget *> & fields)
+    + ~TestingDurationOption() final
+}
+StatDatabaseViewOption <|-- TestingDurationOption
+
+class CompletionPercentage {
+    + CompletionPercentage(std::vector<QWidget *> & fields)
+    + ~CompletionPercentage() final
+}
+StatDatabaseViewOption <|-- CompletionPercentage
+
+' '''''''''''''''''''''''''''''''''''''''''''''''''''''' COMMON '''''''''''''''''''''''''''''''''''''''''''''''''''''' '
+
+class Error {
+    # std::string what
+
+    + Error()
+    + Error(const std::string & what
+    + std::string What()
+    + void Show()
+}
+
+class FileError {
+    + FileError(const std::string & what)
+}
+Error <|-- FileError
+GraphDemo -- FileError
+
+
+class HtmlViewer {
+    - Ui::HtmlViewer * ui
+
+    + HtmlViewer(QWidget *)
+    + ~HtmlViewer()
+
+    + void OpenSource(const QString & source)
+    + void SetWindowTitle(const QString & title)
+
+    - void displaySource()
+    - void on_prevPageButton_clicked()
+    - void on_nextPageButton_clicked()
+    - void urlChanged()
+    - void on_settingsMenuBar_triggered()
+}
+MainWindow <-up- HtmlViewer
+TestingSystem "1" *-- "1" HtmlViewer
+
+class SettingsWindow {
+    + ~SettingsWindow();
+    + static SettingsWindow & Instance();
+
+    - Ui::SettingsWindow *ui;
+    - SettingsWindow(QWidget *parent = nullptr);
+    - void update();
+
+    - void on_changeTheorySourceButton_clicked();
+    - void on_saveTheorySettingsButton_clicked();
+    - void on_changeQuestionsSourceButton_clicked();
+    - void on_saveTestingsWettingsButton_clicked();
+}
+HtmlViewer <-- SettingsWindow
+TestingSystem <-- SettingsWindow
+
+@enduml

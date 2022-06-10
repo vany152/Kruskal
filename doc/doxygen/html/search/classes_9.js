@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['testing_0',['Testing',['../class_testing.html',1,'']]],
-  ['testingsettingswindow_1',['TestingSettingsWindow',['../class_testing_settings_window.html',1,'']]],
-  ['testingsystem_2',['TestingSystem',['../class_testing_system.html',1,'']]],
-  ['theorysettingswindow_3',['TheorySettingsWindow',['../class_theory_settings_window.html',1,'']]],
-  ['theorysystem_4',['TheorySystem',['../class_theory_system.html',1,'']]]
+  ['sessionstat_0',['SessionStat',['../class_session_stat.html',1,'']]],
+  ['sessionstatwidget_1',['SessionStatWidget',['../class_session_stat_widget.html',1,'']]],
+  ['settingswindow_2',['SettingsWindow',['../class_settings_window.html',1,'']]],
+  ['statdatabaseviewoption_3',['StatDatabaseViewOption',['../class_stat_database_view_option.html',1,'']]],
+  ['statdatabaseviewwidget_4',['StatDatabaseViewWidget',['../class_stat_database_view_widget.html',1,'']]],
+  ['staterror_5',['StatError',['../class_session_stat_1_1_stat_error.html',1,'SessionStat']]]
 ];
